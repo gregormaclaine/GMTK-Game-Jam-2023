@@ -1,7 +1,12 @@
 let a;
 let npc_fish = [];
+let player;
+const images = {};
 
-function preload() {}
+function preload() {
+  images['fish'] = loadImage('assets/img/fish.png');
+  console.log(images['fish'].width);
+}
 
 function mouseClicked() {
   // a.trigger().then(console.log);
@@ -10,14 +15,16 @@ function mouseClicked() {
 }
 
 function keyPressed() {
+  // console.log(keyCode);
   a.handle_key_press();
 }
 
 function setup() {
   createCanvas(800, 600);
   a = new QuickTimeEvent();
-  npc_fish.push(new NPCFish([200, 200]));
-  npc_fish.push(new NPCFish([600, 400]));
+  npc_fish.push(new NPCFish([200, 200], images['fish']));
+  npc_fish.push(new NPCFish([600, 400], images['fish']));
+  player = new PlayerFish([400, 300]);
 }
 
 function draw() {
@@ -25,4 +32,5 @@ function draw() {
   background(240);
   npc_fish.forEach(f => f.show());
   a.show();
+  player.show();
 }

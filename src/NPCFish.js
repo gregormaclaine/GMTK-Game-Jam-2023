@@ -1,15 +1,18 @@
 class NPCFish {
-  constructor(start_pos) {
+  constructor(start_pos, image) {
     this.pos = start_pos;
+    this.image = image;
+    this.image.resize(80, 0);
     this.angle = 0;
     this.vel = 1;
     this.noise_offset = random(0, 100);
-    this.max_angle_change = PI / 20;
+    this.max_angle_change = PI / 100;
 
-    this.size = [20, 20];
+    this.size = [this.image.width, this.image.height];
   }
 
   is_on_screen() {
+    const is_vertical = this.angle;
     if (this.pos[0] + this.size[0] / 2 > width) return false;
     if (this.pos[0] - this.size[0] / 2 < 0) return false;
     if (this.pos[1] + this.size[1] / 2 > height) return false;
@@ -45,16 +48,29 @@ class NPCFish {
     this.noise_offset += 0.01;
     const angle_change = noise(this.noise_offset) * 2 - 1;
     this.angle += angle_change * this.max_angle_change;
+    this.angle %= 2 * PI;
 
     this.pos[0] += cos(this.angle) * this.vel;
     this.pos[1] += sin(this.angle) * this.vel;
   }
 
   show() {
-    stroke(0);
-    strokeWeight(1);
-    fill('blue');
-    circle(...this.pos, this.size[0]);
+    // stroke(0);
+    // strokeWeight(1);
+    // fill('blue');
+    // circle(...this.pos, this.size[0]);
+
+    push();
+    translate(...this.pos);
+    if (this.angle > PI / 2 || this.angle < -PI / 2) {
+      // rotate(-this.angle + (this.angle > PI / 2 ? PI / 2 : -PI / 2));
+      rotate(PI + this.angle);
+      scale(-1, 1);
+    } else {
+      rotate(this.angle);
+    }
+    image(this.image, -this.size[0] / 2, -this.size[1] / 2, ...this.size);
+    pop();
 
     this.update();
   }

@@ -2,6 +2,7 @@ let a;
 let npc_fish = [];
 let player;
 let hook;
+let score;
 const images = {};
 
 function preload() {
@@ -23,6 +24,7 @@ function keyPressed() {
 function setup() {
   createCanvas(800, 600);
   a = new QuickTimeEvent();
+  score = new PlayerScore();
   npc_fish.push(new NPCFish([200, 500], images['fish']));
   npc_fish.push(new NPCFish([600, 400], images['fish']));
   player = new PlayerFish([400, 300], images['fish']);
@@ -35,5 +37,6 @@ function draw() {
   hook.show();
   npc_fish.forEach(f => f.show());
   a.show();
+  score.show();
   player.show();
 }

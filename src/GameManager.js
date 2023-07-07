@@ -13,6 +13,7 @@ class GameManager {
     ];
     this.player = new PlayerFish([400, 300], images['fish']);
     this.hook = new Hook([100, 100], images['hook'], images['fish']);
+    this.score = new PlayerScore();
 
     // Flag for if hook failed to catch fish and then cant for a while
     this.hook_on_cooldown = false;
@@ -83,12 +84,14 @@ class GameManager {
         this.hook.show();
         this.npc_fish.forEach(f => f.show());
         this.player.show();
+        this.score.show();
         if (this.state === 'quicktime') this.qte.show();
         return;
 
       case 'losing-fish':
         this.hook.show();
         this.npc_fish.forEach(f => f.show());
+        this.score.show();
         return;
     }
   }

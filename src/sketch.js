@@ -1,4 +1,3 @@
-let game;
 const images = {};
 
 function preload() {

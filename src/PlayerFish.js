@@ -1,7 +1,10 @@
 class PlayerFish {
-  constructor(start_pos) {
+  constructor(start_pos, image) {
     this.pos = createVector(...start_pos);
-    this.size = [20, 20];
+
+    this.image = image;
+    this.image.resize(80, 0);
+    this.size = [this.image.width, this.image.height];
 
     this.vel = createVector(0, 0);
     this.max_vel = 6;
@@ -60,10 +63,22 @@ class PlayerFish {
   }
 
   show() {
-    stroke(0);
-    strokeWeight(1);
-    fill('orange');
-    circle(this.pos.x, this.pos.y, this.size[0]);
+    // stroke(0);
+    // strokeWeight(1);
+    // fill('orange');
+    // circle(this.pos.x, this.pos.y, this.size[0]);
+
+    push();
+    translate(this.pos.x, this.pos.y);
+    const angle = this.vel.heading();
+    if (angle > PI / 2 || angle < -PI / 2) {
+      rotate(PI + angle);
+      scale(-1, 1);
+    } else {
+      rotate(angle);
+    }
+    image(this.image, -this.size[0] / 2, -this.size[1] / 2, ...this.size);
+    pop();
 
     this.update();
   }

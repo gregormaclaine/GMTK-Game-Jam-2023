@@ -1,14 +1,15 @@
-class NPCFish {
+class Hook {
   constructor(start_pos, image) {
     this.pos = start_pos;
+
     this.image = image;
-    this.image.resize(80, 0);
+    this.image.resize(30, 0);
     this.size = [this.image.width, this.image.height];
 
-    this.angle = 0;
+    this.angle = PI / 4;
     this.vel = 1;
     this.noise_offset = random(0, 100);
-    this.max_angle_change = PI / 100;
+    this.max_angle_change = PI / 80;
   }
 
   is_on_screen() {
@@ -27,20 +28,6 @@ class NPCFish {
     return true;
   }
 
-  handle_click() {
-    const mouse = createVector(mouseX, mouseY);
-    const fish = createVector(...this.pos);
-    fish.sub(mouse);
-    this.angle = fish.heading();
-
-    this.max_angle_change /= 2;
-    this.vel *= 3;
-    setTimeout(() => {
-      this.max_angle_change *= 2;
-      this.vel /= 3;
-    }, 500);
-  }
-
   update() {
     if (!this.is_on_screen()) this.angle = this.get_normal_angle(); //this.angle += PI;
 
@@ -54,22 +41,16 @@ class NPCFish {
   }
 
   show() {
-    // stroke(0);
-    // strokeWeight(1);
-    // fill('blue');
-    // circle(...this.pos, this.size[0]);
+    image(
+      this.image,
+      this.pos[0] - this.size[0] / 2,
+      this.pos[1] - this.size[1] / 2,
+      ...this.size
+    );
 
-    push();
-    translate(...this.pos);
-    if (this.angle > PI / 2 || this.angle < -PI / 2) {
-      // rotate(-this.angle + (this.angle > PI / 2 ? PI / 2 : -PI / 2));
-      rotate(PI + this.angle);
-      scale(-1, 1);
-    } else {
-      rotate(this.angle);
-    }
-    image(this.image, -this.size[0] / 2, -this.size[1] / 2, ...this.size);
-    pop();
+    strokeWeight(3);
+    stroke(100);
+    line(this.pos[0], 0, this.pos[0], this.pos[1] - this.size[1] / 2.5);
 
     this.update();
   }

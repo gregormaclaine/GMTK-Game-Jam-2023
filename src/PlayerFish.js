@@ -86,7 +86,5 @@ class PlayerFish {
     pop();
 
     this.hitbox.show();
-
-    this.update();
   }
 }

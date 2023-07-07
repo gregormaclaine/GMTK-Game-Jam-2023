@@ -82,6 +82,8 @@ class HitBox {
   }
 
   show() {
+    return;
+
     stroke('red');
     strokeWeight(1);
 

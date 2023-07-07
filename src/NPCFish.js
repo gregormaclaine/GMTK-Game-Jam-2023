@@ -1,5 +1,5 @@
 class NPCFish {
-  constructor(start_pos, image) {
+  constructor(start_pos, image, angle = 0) {
     this.pos = start_pos;
     this.image = image;
     this.image.resize(80, 0);
@@ -76,7 +76,5 @@ class NPCFish {
     pop();
 
     this.hitbox.show();
-
-    this.update();
   }
 }

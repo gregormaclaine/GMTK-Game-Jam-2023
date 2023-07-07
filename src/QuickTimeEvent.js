@@ -1,13 +1,13 @@
 const exp_interp = (a, b, p) => pow(2, (p - a) / (b - a));
 
 class QuickTimeEvent {
-  static FADE_TIME = 0.1;
+  static FADE_TIME = 0.2;
 
-  constructor() {
+  constructor(time = 1, arc_size = PI / 15) {
     this.pos = [width / 2, height / 2];
-    this.time = 1;
-    this.arc_size = PI / 15;
-    this.size = 200;
+    this.time = time;
+    this.arc_size = arc_size;
+    this.size = 150;
     this.total_arc_angles = [-PI / 2, (PI * 2) / 5];
 
     this.progression = 0;
@@ -55,18 +55,17 @@ class QuickTimeEvent {
 
   handle_key_press() {
     if (!this.active) return;
-
     if (keyCode === 32) this.stop();
   }
 
   async stop() {
     this.active = false;
     this.stopping = true;
-    this.finished_callback(this.get_result());
     await timeout(200);
     this.stopping = false;
     this.fading = true;
     await new Promise(resolve => (this.end_fade = resolve));
+    this.finished_callback(this.get_result());
     this.fading = false;
     this.fade_progression = 0;
     this.progression = 0;
@@ -87,7 +86,7 @@ class QuickTimeEvent {
 
   update() {
     if (this.active) {
-      this.progression += this.time / frameRate();
+      this.progression += 1 / this.time / frameRate();
       if (this.progression >= 1) this.stop();
     }
 
@@ -118,7 +117,5 @@ class QuickTimeEvent {
       strokeWeight(2);
       line(...this.pos, ...this.get_current_rim_point());
     }
-
-    this.update();
   }
 }

@@ -36,4 +36,6 @@ function draw() {
   npc_fish.forEach(f => f.show());
   a.show();
   player.show();
+  if (npc_fish[0].hitbox.is_colliding(npc_fish[1].hitbox))
+    console.log('AAAAAAAHHHHHH');
 }

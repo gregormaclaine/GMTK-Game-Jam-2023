@@ -9,6 +9,8 @@ class NPCFish {
     this.vel = 1;
     this.noise_offset = random(0, 100);
     this.max_angle_change = PI / 100;
+
+    this.hitbox = new HitBox(start_pos, this.size);
   }
 
   is_on_screen() {
@@ -51,6 +53,8 @@ class NPCFish {
 
     this.pos[0] += cos(this.angle) * this.vel;
     this.pos[1] += sin(this.angle) * this.vel;
+
+    this.hitbox.set_angle(this.angle);
   }
 
   show() {
@@ -70,6 +74,8 @@ class NPCFish {
     }
     image(this.image, -this.size[0] / 2, -this.size[1] / 2, ...this.size);
     pop();
+
+    this.hitbox.show();
 
     this.update();
   }

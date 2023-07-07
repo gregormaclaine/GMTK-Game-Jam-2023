@@ -10,6 +10,8 @@ class Hook {
     this.vel = 1;
     this.noise_offset = random(0, 100);
     this.max_angle_change = PI / 80;
+
+    this.hitbox = new HitBox(this.pos, this.size);
   }
 
   is_on_screen() {
@@ -51,6 +53,8 @@ class Hook {
     strokeWeight(3);
     stroke(100);
     line(this.pos[0], 0, this.pos[0], this.pos[1] - this.size[1] / 2.5);
+
+    this.hitbox.show();
 
     this.update();
   }

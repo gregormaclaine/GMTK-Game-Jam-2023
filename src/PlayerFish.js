@@ -10,6 +10,8 @@ class PlayerFish {
     this.max_vel = 6;
     this.acceleration = 0.3;
     this.damping = 0.02;
+
+    this.hitbox = new HitBox([this.pos.x, this.pos.y], this.size);
   }
 
   force_on_screen() {
@@ -60,6 +62,9 @@ class PlayerFish {
     this.vel.limit(this.max_vel);
     this.pos.add(this.vel);
     this.force_on_screen();
+
+    this.hitbox.set_angle(this.vel.heading());
+    this.hitbox.set_pos([this.pos.x, this.pos.y]);
   }
 
   show() {
@@ -79,6 +84,8 @@ class PlayerFish {
     }
     image(this.image, -this.size[0] / 2, -this.size[1] / 2, ...this.size);
     pop();
+
+    this.hitbox.show();
 
     this.update();
   }

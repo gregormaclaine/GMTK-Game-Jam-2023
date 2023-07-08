@@ -23,6 +23,7 @@ class ShopItem {
     if (this.contains_mouse() && this.available) {
       cursor('pointer');
     }
+
   }
 }
 
@@ -44,14 +45,17 @@ class ShopScreen {
     };
 
     this.shop_items = [];
+
+    this.continue = new JL.Button('Continue', [width * 0.85, height * 0.9, 200, 100], this.close.bind(this));
   }
 
   handle_click() {
     this.shop_items.forEach(i => i.handle_click());
+    this.continue.handle_click();
   }
 
   open() {
-    this.images['spinning-fish'].start_loop([800, 200]);
+    this.images['spinning-fish'].start_loop([width * 0.5, height * 0.5]);
   }
 
   close() {
@@ -63,12 +67,13 @@ class ShopScreen {
     background(200);
 
     textAlign(CENTER, CENTER);
-    fill(255);
+    fill(255, 255, 255, 70);
     strokeWeight(0);
-    textSize(40);
-    text('Shop', width * 0.5, height * 0.45);
+    textSize(120);
+    text('SKILL STORE', width * 0.5, height * 0.5);
 
     this.shop_items.forEach(i => i.show());
+    this.continue.show();
   }
 
   update() {}

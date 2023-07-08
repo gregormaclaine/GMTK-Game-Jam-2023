@@ -1,12 +1,13 @@
 class GameManager {
   static HOOK_COOLDOWN = 2000;
 
-  constructor(images, end_game) {
+  constructor(images, end_game, day = 0) {
     this.images = images;
     this.end_game = end_game;
 
     this.state = 'game';
 
+    this.timer = new GameTimer(day, this.end_day.bind(this));
     this.qte = new QuickTimeEvent(4, PI / 4);
     this.npc_fish = [
       new NPCFish([200, 500], images['fish']),
@@ -18,6 +19,8 @@ class GameManager {
 
     // Flag for if hook failed to catch fish and then cant for a while
     this.hook_on_cooldown = false;
+
+    this.timer.begin();
   }
 
   check_for_catches() {
@@ -30,6 +33,12 @@ class GameManager {
         return this.run_catch_event(fish);
       }
     }
+  }
+
+  end_day() {
+    // Prepare game for fading out
+    this.end_game({ fish_lost: false });
+    this.state = 'day-ending';
   }
 
   async run_catch_event(fish) {
@@ -82,10 +91,12 @@ class GameManager {
     switch (this.state) {
       case 'game':
       case 'quicktime':
+      case 'day-ending':
         this.hook.show();
         this.npc_fish.forEach(f => f.show());
         this.player.show();
         this.score.show();
+        this.timer.show();
         if (this.state === 'quicktime') this.qte.show();
         return;
 
@@ -93,6 +104,7 @@ class GameManager {
         this.hook.show();
         this.npc_fish.forEach(f => f.show());
         this.score.show();
+        this.timer.show();
         return;
     }
   }
@@ -103,10 +115,13 @@ class GameManager {
         this.hook.update();
         this.player.update();
         this.npc_fish.forEach(f => f.update());
+        this.timer.update();
 
         if (!this.hook_on_cooldown) this.check_for_catches();
         return;
 
+      case 'day-ending':
+        this.player.update();
       case 'losing-fish':
         this.hook.update();
         this.npc_fish.forEach(f => f.update());

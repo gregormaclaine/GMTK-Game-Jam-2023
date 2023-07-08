@@ -4,7 +4,8 @@ class FishSprite {
   static FISH_OFFSETS = {
     fish: 0,
     'muscle-fish': 0,
-    'crown-fish': 6
+    'crown-fish': 6,
+    'muscle-crown-fish': 6
   };
 
   constructor({ fish, pos, angle, images }) {

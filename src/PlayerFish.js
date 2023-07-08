@@ -17,22 +17,22 @@ class PlayerFish {
   force_on_screen() {
     if (this.pos.x + this.size[0] / 2 > width) {
       this.pos.x = width - this.size[0] / 2;
-      this.vel.x = 0;
+      this.vel.setMag(0.001);
     }
 
     if (this.pos.x - this.size[0] / 2 < 0) {
       this.pos.x = this.size[0] / 2;
-      this.vel.x = 0;
+      this.vel.setMag(0.001);
     }
 
     if (this.pos.y + this.size[1] / 2 > height) {
       this.pos.y = height - this.size[1] / 2;
-      this.vel.y = 0;
+      this.vel.setMag(0.001);
     }
 
     if (this.pos.y - this.size[1] / 2 < INVISIBLE_CEILING) {
       this.pos.y = INVISIBLE_CEILING + this.size[1] / 2;
-      this.vel.y = 0;
+      this.vel.setMag(0.001);
     }
   }
 

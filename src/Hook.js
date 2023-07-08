@@ -78,13 +78,17 @@ class Hook {
   }
 
   update() {
-    if (this.hooked_fish || this.reload_status === 'up') {
+    if (this.hooked_fish) {
       const fish_pos = [
         this.pos[0],
         this.pos[1] + this.fish_sprite.true_size[1] / 6
       ];
       this.fish_sprite.set(fish_pos, 0);
+    }
+
+    if (this.hooked_fish || this.reload_status === 'up') {
       this.pos[1] -= this.get_hook_reel_speed();
+
       if (this.pos[1] < -this.size[1]) this.finish_reel_in();
       return;
     }

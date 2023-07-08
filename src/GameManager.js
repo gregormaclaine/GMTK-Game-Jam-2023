@@ -46,6 +46,8 @@ class GameManager {
     this.score = new PlayerScore(images['star']);
     this.pause_modal = new PauseModal(this.score);
 
+    this.star_effect = new StarParticleEffect(images['star']);
+
     // Flag for if hook failed to catch fish and then cant for a while
     this.hook_on_cooldown = false;
 
@@ -80,6 +82,11 @@ class GameManager {
       if (fish === this.player) this.score.add_score(50 * (result + 1));
       if (result === 2) {
         this.score.increase_combo();
+        this.star_effect.trigger(
+          fish === this.player
+            ? [this.player.pos.x, this.player.pos.y]
+            : fish.pos
+        );
         this.qte.scale_target_arc(pow(1 / this.score.combo, 1.5));
       } else {
         this.score.combo = 1;
@@ -153,6 +160,7 @@ class GameManager {
     if (this.state !== 'losing-fish') this.player.show();
     this.score.show();
     this.timer.show();
+    this.star_effect.show();
     if (this.state !== 'losing-fish') this.fish_warner.show();
     if (this.state === 'quicktime' || this.state === 'pause') this.qte.show();
     if (this.state === 'pause') this.pause_modal.show();
@@ -166,6 +174,7 @@ class GameManager {
         this.npc_fish.forEach(f => f.update(this.hook));
         this.timer.update();
         this.fish_warner.update();
+        this.star_effect.update();
 
         if (!this.hook_on_cooldown) this.check_for_catches();
         return;
@@ -175,6 +184,7 @@ class GameManager {
       case 'losing-fish':
         this.hook.update();
         this.npc_fish.forEach(f => f.update(null));
+        this.star_effect.update();
         return;
 
       case 'quicktime':

@@ -13,10 +13,6 @@ class NPCFish {
     this.images = images;
     this.in_background = in_background;
 
-    // this.image = image['fish'];
-    // this.image.resize(in_background ? 40 : 80, 0);
-    // this.size = [this.image.width, this.image.height];
-
     this.sprite = new FishSprite({
       fish,
       pos,
@@ -120,7 +116,7 @@ class NPCFish {
   show(hook_pos) {
     tint(255, this.in_background ? 120 : 255);
     this.sprite.show();
-    tint(255, 255);
+    noTint();
 
     // if (!this.in_background && this.is_near_hook(hook_pos)) {
     //   stroke('lime');

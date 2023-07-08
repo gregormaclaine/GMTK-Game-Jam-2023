@@ -1,6 +1,6 @@
 const INVISIBLE_CEILING = 60;
 
-const SHOW_HITBOXES = false;
+const SHOW_HITBOXES = true;
 
 const credits = `
     fish PNG Designed By 1081**** from

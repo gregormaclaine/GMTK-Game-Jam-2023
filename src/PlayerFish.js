@@ -16,7 +16,7 @@ class PlayerFish {
     this.damping = 0.02;
 
     this.sprite = new FishSprite({
-      fish: 'muscle-fish',
+      fish: 'crown-fish',
       pos: [this.pos.x, this.pos.y],
       angle: 0,
       images

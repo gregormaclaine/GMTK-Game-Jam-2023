@@ -17,6 +17,7 @@ function preload() {
   images['vision_1'] = loadImage('assets/img/shop_icons/vision_1.png');
   images['vision_2'] = loadImage('assets/img/shop_icons/vision_2.png');
   images['underwater_bg'] = loadImage('assets/img/underwater_bg.jpg');
+  images['cooldown_1'] = loadImage('assets/img/shop_icons/cooldown_1.png');
   images['spinning-fish'] = new Gif({
     path: 'assets/img/spinning-fish.gif',
     duration: 1000,

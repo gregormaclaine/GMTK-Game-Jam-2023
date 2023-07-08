@@ -57,6 +57,7 @@ class ShopScreen {
       new ShopItem({ pos: [100, 550], on_click: ()=>{}, available: true, img: images['luck_3'] }),
       new ShopItem({ pos: [550, 475], on_click: ()=>{}, available: true, img: images['vision_1'] }),
       new ShopItem({ pos: [700, 475], on_click: ()=>{}, available: true, img: images['vision_2'] }),
+      new ShopItem({ pos: [400, 125], on_click: ()=>{}, available: true, img: images['cooldown_1'] }),
     ];
 
     this.continue = new JL.Button(
@@ -110,6 +111,7 @@ class ShopScreen {
     line(400, 300, 575, 125);
     line(400, 300, 575, 475);
     line(400, 300, 225, 475);
+    line(400, 300, 400, 125);
     
     this.shop_items.forEach(i => i.show());
     // this.continue.show();

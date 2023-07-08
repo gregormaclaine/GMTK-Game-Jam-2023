@@ -1,4 +1,4 @@
-// const all_gifs = []
+const all_gifs = []
 
 class Gif {
   constructor({ path, alt, duration, width, audio }) {
@@ -14,13 +14,13 @@ class Gif {
 
     this.showing = false;
 
-    // all_gifs.push(this);
+    all_gifs.push(this);
   }
 
-  // static set_canvas(cnv) {
-  //   cnv.elt.parentElement.style.position = 'relative';
-  //   this.boom_gif.parent(cnv.elt.parentElement);
-  // }
+  static set_canvas(cnv) {
+    cnv.elt.parentElement.style.position = 'relative';
+    all_gifs.forEach(g => g.image.parent(cnv.elt.parentElement));
+  }
 
   get_corner_pos(pos) {
     const [midx, midy] = pos;

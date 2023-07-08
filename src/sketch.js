@@ -16,7 +16,8 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(800, 600);
+  const cnv = createCanvas(800, 600);
+  Gif.set_canvas(cnv);
   scenes = new SceneManager(images, audio);
 }
 

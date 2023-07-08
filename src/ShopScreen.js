@@ -50,9 +50,9 @@ class ShopScreen {
     this.shop_items.forEach(i => i.handle_click());
   }
 
-  // open() {
-  //   this.images['spinning-fish'].startLoop(200, 200, 498, 200);
-  // }
+  open() {
+    this.images['spinning-fish'].start_loop([800, 200]);
+  }
 
   show() {
     background(200);

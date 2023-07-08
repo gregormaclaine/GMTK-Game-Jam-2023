@@ -28,6 +28,8 @@ class Hook {
     // Flag for when the hook has successfully caught a fish
     this.hooked_fish = false;
     this.finish_reel_in = () => {};
+
+    this.reload_status = null;
   }
 
   is_on_screen() {
@@ -51,6 +53,17 @@ class Hook {
     await new Promise(resolve => (this.finish_reel_in = resolve));
   }
 
+  async reload_bait() {
+    this.reload_status = 'waiting';
+    await timeout(random(3000, 5000));
+    this.reload_status = 'up';
+    await new Promise(resolve => (this.finish_reel_in = resolve));
+    this.has_worm = true;
+    this.reload_status = 'down';
+    await new Promise(resolve => (this.finish_reel_in = resolve));
+    this.reload_status = null;
+  }
+
   get_hook_reel_speed() {
     return lerp(
       Hook.BASE_REEL_IN_SPEED,
@@ -60,9 +73,15 @@ class Hook {
   }
 
   update() {
-    if (this.hooked_fish) {
+    if (this.hooked_fish || this.reload_status === 'up') {
       this.pos[1] -= this.get_hook_reel_speed();
       if (this.pos[1] < -this.size[1]) this.finish_reel_in();
+      return;
+    }
+
+    if (this.reload_status === 'down') {
+      this.pos[1] += this.get_hook_reel_speed();
+      if (this.pos[1] > INVISIBLE_CEILING + this.size[1]) this.finish_reel_in();
       return;
     }
 
@@ -75,6 +94,8 @@ class Hook {
 
     this.pos[0] += cos(this.angle) * this.vel;
     this.pos[1] += sin(this.angle) * this.vel;
+
+    if (!this.has_worm && !this.reload_status) this.reload_bait();
   }
 
   show() {

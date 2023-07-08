@@ -61,6 +61,7 @@ class GameManager {
     const result = await this.qte.trigger();
 
     if (result) {
+      this.hook.has_worm = false;
       // Quicktime Success
       if (fish === this.player) this.score.add_score(50 * (result + 1));
       if (result === 2) {

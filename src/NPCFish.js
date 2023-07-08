@@ -1,6 +1,13 @@
 class NPCFish {
-  constructor(start_pos, image, angle = 0, in_background = false) {
-    this.pos = start_pos;
+  constructor({
+    pos,
+    image,
+    angle = 0,
+    in_background = false,
+    smell_distance = 160,
+    see_distance = 80
+  }) {
+    this.pos = pos;
     this.in_background = in_background;
 
     this.image = image;
@@ -12,11 +19,11 @@ class NPCFish {
     this.noise_offset = random(0, 100);
     this.max_angle_change = PI / 100;
 
-    this.hitbox = new HitBox(start_pos, this.size);
+    this.hitbox = new HitBox(pos, this.size);
 
     // How far the fish will be when it begins to turn towards the hook
-    this.smell_distance = 160;
-    this.see_distance = this.smell_distance / 2;
+    this.smell_distance = smell_distance;
+    this.see_distance = see_distance;
   }
 
   is_on_screen() {

@@ -1,28 +1,30 @@
 class GameManager {
   static HOOK_COOLDOWN = 2000;
 
-  constructor(images, end_game, day = 0) {
+  constructor({ images, end_game, day = 0, upgrades, fish_left }) {
     this.images = images;
     this.end_game = end_game;
+    this.day = day;
+    this.upgrades = upgrades;
 
     this.state = 'game';
 
     this.timer = new GameTimer(day, this.end_day.bind(this));
     this.qte = new QuickTimeEvent(1.4, PI / 8);
     this.npc_fish = [
-      new NPCFish([200, 500], images['fish']),
-      new NPCFish([600, 400], images['fish'])
-    ];
+      new NPCFish({ pos: [200, 500], image: images['fish'] }),
+      new NPCFish({ pos: [600, 500], image: images['fish'] })
+    ].slice(0, fish_left);
 
-    // Add lots of ornamental background fish
+    // // Add lots of ornamental background fish
     // for (let i = 0; i < 20; i++) {
     //   this.npc_fish.push(
-    //     new NPCFish(
-    //       [random(0, 800), random(INVISIBLE_CEILING, 600)],
-    //       images['fish'],
-    //       random(-PI, PI),
-    //       true
-    //     )
+    //     new NPCFish({
+    //       pos: [random(0, 800), random(INVISIBLE_CEILING, 600)],
+    //       image: images['fish'],
+    //       angle: random(-PI, PI),
+    //       in_background: true
+    //     })
     //   );
     // }
 
@@ -89,11 +91,11 @@ class GameManager {
       this.npc_fish = this.npc_fish.filter(f => f !== fish);
 
       // Create NPC fish stand in for player
-      const npc_standin = new NPCFish(
-        [this.player.pos.x, this.player.pos.y],
-        images['fish'],
-        this.player.angle
-      );
+      const npc_standin = new NPCFish({
+        pos: [this.player.pos.x, this.player.pos.y],
+        image: images['fish'],
+        angle: this.player.angle
+      });
       this.npc_fish.push(npc_standin);
     }
 

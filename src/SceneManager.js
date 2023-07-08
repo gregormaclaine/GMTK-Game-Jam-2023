@@ -7,12 +7,23 @@ class SceneManager {
     this.state = 'game';
 
     this.menu_scene = new MenuScreen(images);
-    this.game_scene = new GameManager(images, this.end_game.bind(this));
-    this.shop_scene = new ShopScreen(images);
+    this.current_game_day = -1;
+    this.shop_scene = new ShopScreen(images, this.exit_menu.bind(this));
+    this.initialise_new_game_day();
 
     this.fade_mode = null;
     this.fade_progress = 0;
     this.fade_completed = () => {};
+  }
+
+  initialise_new_game_day() {
+    this.current_game_day++;
+    this.game_scene = new GameManager({
+      images,
+      end_game: this.end_game.bind(this),
+      day: this.current_game_day,
+      upgrades: this.shop_scene.unlocked_upgrades
+    });
   }
 
   async fade(mode) {
@@ -24,7 +35,18 @@ class SceneManager {
 
   async end_game({ fish_lost }) {
     await this.fade('out');
-    this.state = 'shop';
+    if (this.current_game_day < 4) {
+      this.state = 'shop';
+    } else {
+      this.state = 'end';
+    }
+    await this.fade('in');
+  }
+
+  async exit_menu() {
+    this.initialise_new_game_day();
+    await this.fade('out');
+    this.state = 'game';
     await this.fade('in');
   }
 

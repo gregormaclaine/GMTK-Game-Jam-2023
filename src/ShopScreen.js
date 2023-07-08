@@ -1,8 +1,9 @@
 class ShopItem {
   // Rect is center points and width and height
-  constructor({ rect, on_click }) {
+  constructor({ rect, on_click, available }) {
     this.rect = rect;
     this.on_click = on_click;
+    this.available = available;
   }
 
   contains_mouse() {
@@ -18,12 +19,17 @@ class ShopItem {
     if (this.contains_mouse) this.on_click();
   }
 
-  show() {}
+  show() {
+    if (this.contains_mouse() && this.available) {
+      cursor('pointer');
+    }
+  }
 }
 
 class ShopScreen {
-  constructor(images) {
+  constructor(images, start_next_day) {
     this.images = images;
+    this.start_next_day = start_next_day;
 
     this.unlocked_upgrades = {
       'fin-1': false, // Player can accelerate faster
@@ -52,6 +58,8 @@ class ShopScreen {
     strokeWeight(0);
     textSize(40);
     text('Shop', width * 0.5, height * 0.45);
+
+    this.shop_items.forEach(i => i.show());
   }
 
   update() {}

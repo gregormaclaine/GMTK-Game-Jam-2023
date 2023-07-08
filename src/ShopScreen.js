@@ -60,8 +60,8 @@ class ShopScreen {
     textAlign(CENTER, CENTER);
     fill(255);
     strokeWeight(0);
-    textSize(40);
-    text('Shop', width * 0.5, height * 0.45);
+    textSize(120);
+    text('Skill Store', width * 0.5, height * 0.5);
 
     this.shop_items.forEach(i => i.show());
   }

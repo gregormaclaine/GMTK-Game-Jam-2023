@@ -1,4 +1,5 @@
 const images = {};
+let scenes;
 
 function preload() {
   images['fish'] = loadImage('assets/img/fish.png');
@@ -6,20 +7,19 @@ function preload() {
 }
 
 function mouseClicked() {
-  game.handle_click();
+  scenes.handle_click();
 }
 
 function keyPressed() {
   // console.log(keyCode);
-  game.handle_key_press();
+  scenes.handle_key_press();
 }
 
 function setup() {
   createCanvas(800, 600);
-  game = new GameManager(images);
+  scenes = new SceneManager(images);
 }
 
 function draw() {
-  game.show();
-  game.update();
+  scenes.show();
 }

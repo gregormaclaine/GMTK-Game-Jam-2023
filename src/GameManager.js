@@ -1,8 +1,9 @@
 class GameManager {
   static HOOK_COOLDOWN = 2000;
 
-  constructor(images) {
+  constructor(images, end_game) {
     this.images = images;
+    this.end_game = end_game;
 
     this.state = 'game';
 
@@ -63,7 +64,7 @@ class GameManager {
     }
 
     await this.hook.run_catch_animation();
-    console.log('fade out');
+    this.end_game({ fish_lost: true });
   }
 
   handle_click() {

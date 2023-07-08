@@ -30,7 +30,7 @@ class GameManager {
     }
 
     for (const fish of this.npc_fish) {
-      if (this.hook.hitbox.is_colliding(fish.hitbox)) {
+      if (!fish.in_background && this.hook.hitbox.is_colliding(fish.hitbox)) {
         return this.run_catch_event(fish);
       }
     }
@@ -88,7 +88,7 @@ class GameManager {
 
   show() {
     cursor();
-    background(240);
+    background(15, 94, 156);
 
     stroke(0);
     strokeWeight(1);
@@ -98,8 +98,9 @@ class GameManager {
       case 'game':
       case 'quicktime':
       case 'day-ending':
+        this.npc_fish.filter(f => f.in_background).forEach(f => f.show());
         this.hook.show();
-        this.npc_fish.forEach(f => f.show());
+        this.npc_fish.filter(f => !f.in_background).forEach(f => f.show());
         this.player.show();
         this.score.show();
         this.timer.show();
@@ -108,8 +109,9 @@ class GameManager {
         return;
 
       case 'losing-fish':
+        this.npc_fish.filter(f => f.in_background).forEach(f => f.show());
         this.hook.show();
-        this.npc_fish.forEach(f => f.show());
+        this.npc_fish.filter(f => !f.in_background).forEach(f => f.show());
         this.score.show();
         this.timer.show();
         return;

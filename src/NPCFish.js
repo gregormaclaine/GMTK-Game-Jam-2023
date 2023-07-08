@@ -1,11 +1,13 @@
 class NPCFish {
-  constructor(start_pos, image, angle = 0) {
+  constructor(start_pos, image, angle = 0, in_background = false) {
     this.pos = start_pos;
+    this.in_background = in_background;
+
     this.image = image;
-    this.image.resize(80, 0);
+    this.image.resize(in_background ? 40 : 80, 0);
     this.size = [this.image.width, this.image.height];
 
-    this.angle = 0;
+    this.angle = angle;
     this.vel = 1;
     this.noise_offset = random(0, 100);
     this.max_angle_change = PI / 100;
@@ -30,6 +32,8 @@ class NPCFish {
   }
 
   flee_mouse() {
+    if (this.in_background) return;
+
     const mouse = createVector(mouseX, mouseY);
     const fish = createVector(...this.pos);
     fish.sub(mouse);
@@ -67,6 +71,7 @@ class NPCFish {
     } else {
       rotate(this.angle);
     }
+    tint(255, this.in_background ? 120 : 255);
     image(this.image, -this.size[0] / 2, -this.size[1] / 2, ...this.size);
     pop();
 

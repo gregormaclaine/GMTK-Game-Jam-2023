@@ -49,6 +49,7 @@ class SceneManager {
       const opacities = this.fade_mode === 'in' ? [255, 0] : [0, 255];
       fill(0, lerp(...opacities, this.fade_progress));
       strokeWeight(0);
+      rectMode(CORNERS);
       rect(0, 0, width, height);
     }
   }

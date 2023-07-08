@@ -18,10 +18,10 @@ class GameManager {
     this.state = 'game';
 
     this.timer = new GameTimer(day, this.end_day.bind(this));
-    this.qte = new QuickTimeEvent(1.4, PI / 8);
+    this.qte = new QuickTimeEvent(1.4 - day * 0.15, PI / 8);
     this.npc_fish = [
-      new NPCFish({ pos: [200, 500], image: images['fish'] }),
-      new NPCFish({ pos: [600, 500], image: images['fish'] })
+      new NPCFish({ pos: [200, 500], images, speed: day > 0 ? 2 : 1 }),
+      new NPCFish({ pos: [600, 500], images, speed: day > 0 ? 2 : 1 })
     ].slice(0, fish_left - 1);
 
     // // Add lots of ornamental background fish
@@ -29,7 +29,7 @@ class GameManager {
     //   this.npc_fish.push(
     //     new NPCFish({
     //       pos: [random(0, 800), random(INVISIBLE_CEILING, 600)],
-    //       image: images['fish'],
+    //       images,
     //       angle: random(-PI, PI),
     //       in_background: true
     //     })
@@ -37,10 +37,16 @@ class GameManager {
     // }
 
     this.fish_warner = new FishWarner(this.npc_fish);
-    this.player = new PlayerFish([400, 300], images['fish']);
-    this.hook = new Hook([100, 100], images);
+    this.player = new PlayerFish([400, 300], images);
+    this.hook = new Hook({
+      pos: [100, 100],
+      images,
+      speed: day > 0 ? 3 : 1.5
+    });
     this.score = new PlayerScore(images['star']);
     this.pause_modal = new PauseModal(this.score);
+
+    this.star_effect = new StarParticleEffect(images['star']);
 
     // Flag for if hook failed to catch fish and then cant for a while
     this.hook_on_cooldown = false;
@@ -76,6 +82,11 @@ class GameManager {
       if (fish === this.player) this.score.add_score(50 * (result + 1));
       if (result === 2) {
         this.score.increase_combo();
+        this.star_effect.trigger(
+          fish === this.player
+            ? [this.player.pos.x, this.player.pos.y]
+            : fish.pos
+        );
         this.qte.scale_target_arc(pow(1 / this.score.combo, 1.5));
       } else {
         this.score.combo = 1;
@@ -101,13 +112,16 @@ class GameManager {
       // Create NPC fish stand in for player
       const npc_standin = new NPCFish({
         pos: [this.player.pos.x, this.player.pos.y],
-        image: images['fish'],
-        angle: this.player.angle
+        images: this.images,
+        angle: this.player.angle,
+        fish: this.player.sprite.fish
       });
       this.npc_fish.push(npc_standin);
     }
 
-    await this.hook.run_catch_animation();
+    await this.hook.run_catch_animation(
+      fish === this.player ? this.player.sprite.fish : 'fish'
+    );
     this.end_game({ fish_lost: true, score: this.score.score });
   }
 
@@ -146,6 +160,7 @@ class GameManager {
     if (this.state !== 'losing-fish') this.player.show();
     this.score.show();
     this.timer.show();
+    this.star_effect.show();
     if (this.state !== 'losing-fish') this.fish_warner.show();
     if (this.state === 'quicktime' || this.state === 'pause') this.qte.show();
     if (this.state === 'pause') this.pause_modal.show();
@@ -159,6 +174,7 @@ class GameManager {
         this.npc_fish.forEach(f => f.update(this.hook));
         this.timer.update();
         this.fish_warner.update();
+        this.star_effect.update();
 
         if (!this.hook_on_cooldown) this.check_for_catches();
         return;
@@ -168,6 +184,7 @@ class GameManager {
       case 'losing-fish':
         this.hook.update();
         this.npc_fish.forEach(f => f.update(null));
+        this.star_effect.update();
         return;
 
       case 'quicktime':

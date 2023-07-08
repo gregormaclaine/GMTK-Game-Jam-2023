@@ -27,6 +27,12 @@
         margin: 0;
         background-color: antiquewhite;
       }
+
+      .prevent-select {
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
+      }
     </style>
   </head>
 
@@ -36,9 +42,11 @@
     <script src="src/DialogueManager.js" defer></script>
     <script src="src/QuickTimeEvent.js" defer></script>
     <script src="src/HitBox.js" defer></script>
+    <script src="src/FishSprite.js" defer></script>
     <script src="src/NPCFish.js" defer></script>
     <script src="src/PlayerFish.js" defer></script>
     <script src="src/Hook.js" defer></script>
+    <script src="src/StarParticleEffect.js" defer></script>
     <script src="src/PlayerScore.js" defer></script>
     <script src="src/GameTimer.js" defer></script>
     <script src="src/FishWarner.js" defer></script>
@@ -47,6 +55,7 @@
     <script src="src/GameManager.js" defer></script>
     <script src="src/MenuScreen.js" defer></script>
     <script src="src/ShopScreen.js" defer></script>
+    <script src="src/EndScreen.js" defer></script>
     <script src="src/SceneManager.js" defer></script>
     <script src="src/sketch.js" defer></script>
   </body>

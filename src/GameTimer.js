@@ -1,6 +1,6 @@
 class GameTimer {
   static DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-  static DAY_LENGTH = 60 * 3; // Seconds
+  static DAY_LENGTH = 30; // Seconds
   static START_HOUR = 5;
   static END_HOUR = 20;
 

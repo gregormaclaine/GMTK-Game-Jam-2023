@@ -1,23 +1,22 @@
 class Hook {
   static BASE_REEL_IN_SPEED = 2;
 
-  constructor(start_pos, images) {
-    this.pos = start_pos;
+  constructor({ pos, images, speed }) {
+    this.pos = pos;
+    this.images = images;
 
     this.image = images['hook'];
     this.image.resize(30, 0);
     this.size = [this.image.width, this.image.height];
 
-    this.fish_sprite = images['fish'];
-    this.fish_sprite.resize(80, 0);
-    this.fish_size = [this.fish_sprite.width, this.fish_sprite.height];
+    this.fish_sprite = null;
 
     this.worm_sprite = images['worm'];
     this.worm_sprite.resize(40, 0);
     this.worm_size = [this.worm_sprite.width, this.worm_sprite.height];
 
     this.angle = PI / 4;
-    this.vel = 1;
+    this.vel = speed;
     this.noise_offset = random(0, 100);
     this.max_angle_change = PI / 80;
 
@@ -48,8 +47,14 @@ class Hook {
     return true;
   }
 
-  async run_catch_animation() {
+  async run_catch_animation(fish_type) {
     this.hooked_fish = true;
+    this.fish_sprite = new FishSprite({
+      fish: fish_type,
+      pos: this.pos,
+      angle: 0,
+      images: this.images
+    });
     await new Promise(resolve => (this.finish_reel_in = resolve));
   }
 
@@ -73,8 +78,17 @@ class Hook {
   }
 
   update() {
+    if (this.hooked_fish) {
+      const fish_pos = [
+        this.pos[0],
+        this.pos[1] + this.fish_sprite.true_size[1] / 6
+      ];
+      this.fish_sprite.set(fish_pos, 0);
+    }
+
     if (this.hooked_fish || this.reload_status === 'up') {
       this.pos[1] -= this.get_hook_reel_speed();
+
       if (this.pos[1] < -this.size[1]) this.finish_reel_in();
       return;
     }
@@ -111,12 +125,7 @@ class Hook {
     line(this.pos[0], -5, this.pos[0], this.pos[1] - this.size[1] / 2.5);
 
     if (this.hooked_fish) {
-      image(
-        this.fish_sprite,
-        this.pos[0] - this.fish_size[0] / 2,
-        this.pos[1] - this.fish_size[1] / 6,
-        ...this.fish_size
-      );
+      this.fish_sprite.show();
     } else if (this.has_worm) {
       push();
       translate(

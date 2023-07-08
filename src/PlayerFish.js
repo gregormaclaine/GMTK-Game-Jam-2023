@@ -1,38 +1,44 @@
 class PlayerFish {
-  constructor(start_pos, image) {
+  constructor(start_pos, images) {
     this.pos = createVector(...start_pos);
-
-    this.image = image;
-    this.image.resize(80, 0);
-    this.size = [this.image.width, this.image.height];
 
     this.vel = createVector(0, 0);
     this.max_vel = 6;
     this.acceleration = 0.3;
     this.damping = 0.02;
 
-    this.hitbox = new HitBox([this.pos.x, this.pos.y], this.size);
+    this.sprite = new FishSprite({
+      fish: 'muscle-crown-fish',
+      pos: [this.pos.x, this.pos.y],
+      angle: 0,
+      images
+    });
+  }
+
+  get hitbox() {
+    return this.sprite.hitbox;
   }
 
   force_on_screen() {
-    if (this.pos.x + this.size[0] / 2 > width) {
-      this.pos.x = width - this.size[0] / 2;
-      this.vel.x = 0;
+    const size = this.sprite.size;
+    if (this.pos.x + size[0] / 2 > width) {
+      this.pos.x = width - size[0] / 2;
+      this.vel.setMag(0.001);
     }
 
-    if (this.pos.x - this.size[0] / 2 < 0) {
-      this.pos.x = this.size[0] / 2;
-      this.vel.x = 0;
+    if (this.pos.x - size[0] / 2 < 0) {
+      this.pos.x = size[0] / 2;
+      this.vel.setMag(0.001);
     }
 
-    if (this.pos.y + this.size[1] / 2 > height) {
-      this.pos.y = height - this.size[1] / 2;
-      this.vel.y = 0;
+    if (this.pos.y + size[1] / 2 > height) {
+      this.pos.y = height - size[1] / 2;
+      this.vel.setMag(0.001);
     }
 
-    if (this.pos.y - this.size[1] / 2 < INVISIBLE_CEILING) {
-      this.pos.y = INVISIBLE_CEILING + this.size[1] / 2;
-      this.vel.y = 0;
+    if (this.pos.y - size[1] / 2 < INVISIBLE_CEILING) {
+      this.pos.y = INVISIBLE_CEILING + size[1] / 2;
+      this.vel.setMag(0.001);
     }
   }
 
@@ -63,23 +69,10 @@ class PlayerFish {
     this.pos.add(this.vel);
     this.force_on_screen();
 
-    this.hitbox.set_angle(this.vel.heading());
-    this.hitbox.set_pos([this.pos.x, this.pos.y]);
+    this.sprite.set([this.pos.x, this.pos.y], this.vel.heading());
   }
 
   show() {
-    push();
-    translate(this.pos.x, this.pos.y);
-    const angle = this.vel.heading();
-    if (angle > PI / 2 || angle < -PI / 2) {
-      rotate(PI + angle);
-      scale(-1, 1);
-    } else {
-      rotate(angle);
-    }
-    image(this.image, -this.size[0] / 2, -this.size[1] / 2, ...this.size);
-    pop();
-
-    this.hitbox.show();
+    this.sprite.show();
   }
 }

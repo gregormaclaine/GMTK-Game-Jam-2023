@@ -22,8 +22,9 @@ class ShopItem {
 
   show() {
     imageMode(CENTER);
-    image(this.img, this.pos[0], this.pos[1], 100, 100);
-    
+    const size = this.contains_mouse() ? 110 : 100;
+    image(this.img, this.pos[0], this.pos[1], size, size);
+
     if (this.contains_mouse() && this.available) {
       cursor('pointer');
     }
@@ -47,6 +48,7 @@ class ShopScreen {
       'vision-2': false // Fish have worse smell
     };
 
+    // prettier-ignore
     this.shop_items = [
       new ShopItem({ pos: [250, 125], on_click: ()=>{}, available: true, img: images['agility_1'] }),
       new ShopItem({ pos: [100, 125], on_click: ()=>{}, available: true, img: images['agility_2'] }),
@@ -73,11 +75,11 @@ class ShopScreen {
   }
 
   open(fish_lost) {
-    this.images['spinning-fish'].start_loop([width * 0.5, height * 0.5]);
+    this.images['spinning-fish'].fade_in([width * 0.5, height * 0.5]);
   }
 
   close() {
-    this.images['spinning-fish'].stop_loop();
+    this.images['spinning-fish'].fade_out();
     this.start_next_day();
   }
 
@@ -117,5 +119,7 @@ class ShopScreen {
     // this.continue.show();
   }
 
-  update() {}
+  update() {
+    this.images['spinning-fish'].update();
+  }
 }

@@ -5,20 +5,24 @@ class SceneManager {
     this.images = images;
     this.audio = audio;
 
-    this.state = 'shop';
+    this.state = 'game';
     this.current_game_day = -1;
+    this.fish_left = 3;
 
     this.dialogue = new DialogueManager();
 
     this.menu_scene = new MenuScreen(images, this.dialogue);
+    this.end_scene = new EndScreen(
+      images,
+      this.dialogue,
+      this.exit_end_screen.bind(this)
+    );
     this.shop_scene = new ShopScreen(images, this.exit_menu.bind(this));
     this.initialise_new_game_day();
 
     this.fade_mode = null;
     this.fade_progress = 0;
     this.fade_completed = () => {};
-
-    this.shop_scene.open();
   }
 
   initialise_new_game_day() {
@@ -28,7 +32,8 @@ class SceneManager {
       end_game: this.end_game.bind(this),
       day: this.current_game_day,
       upgrades: this.shop_scene.unlocked_upgrades,
-      dialogue: this.dialogue
+      dialogue: this.dialogue,
+      fish_left: this.fish_left
     });
   }
 
@@ -40,11 +45,14 @@ class SceneManager {
   }
 
   async end_game({ fish_lost }) {
+    if (fish_lost) this.fish_left--;
     await this.fade('out');
-    if (this.current_game_day < 4) {
+    if (this.current_game_day < 4 && this.fish_left > 0) {
       this.state = 'shop';
+      this.shop_scene.open(fish_lost);
     } else {
       this.state = 'end';
+      this.end_scene.open({ result: this.fish_left > 0 ? 'win' : 'lose' });
     }
     await this.fade('in');
   }
@@ -53,6 +61,12 @@ class SceneManager {
     this.initialise_new_game_day();
     await this.fade('out');
     this.state = 'game';
+    await this.fade('in');
+  }
+
+  async exit_end_screen() {
+    await this.fade('out');
+    this.state = 'menu';
     await this.fade('in');
   }
 
@@ -68,6 +82,8 @@ class SceneManager {
         return this.shop_scene.handle_click();
       case 'menu':
         return this.menu_scene.handle_click();
+      case 'end':
+        return this.end_scene.handle_click();
     }
   }
 
@@ -92,6 +108,10 @@ class SceneManager {
 
       case 'menu':
         this.menu_scene.show();
+        break;
+
+      case 'end':
+        this.end_scene.show();
         break;
     }
 
@@ -125,6 +145,10 @@ class SceneManager {
 
       case 'menu':
         this.menu_scene.update();
+        break;
+
+      case 'end':
+        this.end_scene.update();
         break;
     }
   }

@@ -1,8 +1,8 @@
 class Hook {
   static BASE_REEL_IN_SPEED = 2;
 
-  constructor(start_pos, images) {
-    this.pos = start_pos;
+  constructor({ pos, images, speed }) {
+    this.pos = pos;
 
     this.image = images['hook'];
     this.image.resize(30, 0);
@@ -17,7 +17,7 @@ class Hook {
     this.worm_size = [this.worm_sprite.width, this.worm_sprite.height];
 
     this.angle = PI / 4;
-    this.vel = 1;
+    this.vel = speed;
     this.noise_offset = random(0, 100);
     this.max_angle_change = PI / 80;
 

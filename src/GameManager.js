@@ -1,11 +1,19 @@
 class GameManager {
   static HOOK_COOLDOWN = 2000;
 
-  constructor({ images, end_game, day = 0, upgrades, fish_left }) {
+  constructor({
+    images,
+    end_game,
+    day = 0,
+    upgrades,
+    fish_left = 3,
+    dialogue
+  }) {
     this.images = images;
     this.end_game = end_game;
     this.day = day;
     this.upgrades = upgrades;
+    this.dialogue = dialogue;
 
     this.state = 'game';
 
@@ -14,7 +22,7 @@ class GameManager {
     this.npc_fish = [
       new NPCFish({ pos: [200, 500], image: images['fish'] }),
       new NPCFish({ pos: [600, 500], image: images['fish'] })
-    ].slice(0, fish_left);
+    ].slice(0, fish_left - 1);
 
     // // Add lots of ornamental background fish
     // for (let i = 0; i < 20; i++) {
@@ -109,14 +117,16 @@ class GameManager {
   }
 
   handle_key_press() {
-    if (this.state === 'pause') this.pause_modal.handle_key_press();
-    else if (this.state === 'game' || this.state === 'quicktime') {
+    if (this.state === 'pause') return this.pause_modal.handle_key_press();
+
+    if (this.state === 'game' || this.state === 'quicktime') {
       const old_val = this.state;
       if (keyCode === 90) {
         this.pause_modal.open(() => (this.state = old_val));
         return (this.state = 'pause');
       }
     }
+
     if (this.state === 'quicktime') this.qte.handle_key_press();
   }
 

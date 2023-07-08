@@ -1,4 +1,5 @@
 const images = {};
+const audio = new JL.Audio([], []);
 let scenes;
 
 function preload() {
@@ -6,6 +7,12 @@ function preload() {
   images['hook'] = loadImage('assets/img/fish-hook.png');
   images['star'] = loadImage('assets/img/star.png');
   images['worm'] = loadImage('assets/img/worm.png');
+  audio.preload();
+}
+
+function setup() {
+  createCanvas(800, 600);
+  scenes = new SceneManager(images, audio);
 }
 
 function mouseClicked() {
@@ -17,11 +24,7 @@ function keyPressed() {
   scenes.handle_key_press();
 }
 
-function setup() {
-  createCanvas(800, 600);
-  scenes = new SceneManager(images);
-}
-
 function draw() {
   scenes.show();
+  scenes.update();
 }

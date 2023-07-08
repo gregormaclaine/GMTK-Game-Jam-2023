@@ -1,9 +1,14 @@
 class MenuScreen {
-  constructor(images) {
+  constructor(images, dialogue) {
     this.images = images;
+    this.dialogue = dialogue;
   }
 
-  show() {}
+  handle_click() {}
+
+  show() {
+    background(200);
+  }
 
   update() {}
 }

@@ -6,7 +6,8 @@ class SceneManager {
     this.audio = audio;
 
     this.state = 'game';
-    this.current_game_day = 1;
+    this.current_game_day = -1;
+    this.fish_left = 3;
 
     this.dialogue = new DialogueManager();
 
@@ -26,7 +27,8 @@ class SceneManager {
       end_game: this.end_game.bind(this),
       day: this.current_game_day,
       upgrades: this.shop_scene.unlocked_upgrades,
-      dialogue: this.dialogue
+      dialogue: this.dialogue,
+      fish_left: this.fish_left
     });
   }
 
@@ -38,8 +40,9 @@ class SceneManager {
   }
 
   async end_game({ fish_lost }) {
+    if (fish_lost) this.fish_left--;
     await this.fade('out');
-    if (this.current_game_day < 4) {
+    if (this.current_game_day < 4 && this.fish_left > 0) {
       this.state = 'shop';
       this.shop_scene.open();
     } else {

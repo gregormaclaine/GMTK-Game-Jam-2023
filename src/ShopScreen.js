@@ -23,7 +23,6 @@ class ShopItem {
     if (this.contains_mouse() && this.available) {
       cursor('pointer');
     }
-
   }
 }
 
@@ -46,7 +45,11 @@ class ShopScreen {
 
     this.shop_items = [];
 
-    this.continue = new JL.Button('Continue', [width * 0.85, height * 0.9, 200, 100], this.close.bind(this));
+    this.continue = new JL.Button(
+      'Continue',
+      [width * 0.85, height * 0.9, 200, 100],
+      this.close.bind(this)
+    );
   }
 
   handle_click() {
@@ -55,11 +58,11 @@ class ShopScreen {
   }
 
   open() {
-    this.images['spinning-fish'].start_loop([width * 0.5, height * 0.5]);
+    this.images['spinning-fish'].fade_in([width * 0.5, height * 0.5]);
   }
 
   close() {
-    this.images['spinning-fish'].stop_loop();
+    this.images['spinning-fish'].fade_out();
     this.start_next_day();
   }
 
@@ -76,5 +79,7 @@ class ShopScreen {
     this.continue.show();
   }
 
-  update() {}
+  update() {
+    this.images['spinning-fish'].update();
+  }
 }

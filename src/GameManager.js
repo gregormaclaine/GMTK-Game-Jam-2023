@@ -40,7 +40,7 @@ class GameManager {
     this.player = new PlayerFish([400, 300], images['fish']);
     this.hook = new Hook([100, 100], images);
     this.score = new PlayerScore(images['star']);
-    this.pause_modal = new PauseModal();
+    this.pause_modal = new PauseModal(this.score);
 
     // Flag for if hook failed to catch fish and then cant for a while
     this.hook_on_cooldown = false;

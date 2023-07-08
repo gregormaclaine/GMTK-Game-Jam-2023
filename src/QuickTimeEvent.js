@@ -5,8 +5,13 @@ class QuickTimeEvent {
 
   constructor(time = 1, arc_size = PI / 15) {
     this.pos = [width / 2, height / 2];
+
+    this.base_time = time;
     this.time = time;
+
+    this.base_arc_size = arc_size;
     this.arc_size = arc_size;
+
     this.size = 150;
     this.total_arc_angles = [-PI / 2, (PI * 2) / 5];
 
@@ -18,6 +23,14 @@ class QuickTimeEvent {
     this.fade_progression = 0;
     this.end_fade = () => {};
     this.stopping = false;
+  }
+
+  scale_target_arc(scale) {
+    this.arc_size *= scale;
+  }
+
+  reset_target_arc() {
+    this.arc_size = this.base_arc_size;
   }
 
   current_angle() {
@@ -50,6 +63,7 @@ class QuickTimeEvent {
     this.fading = false;
     this.fade_progression = 0;
     this.active = true;
+    this.time = this.base_time * random(0.8, 1.1);
     return new Promise(resolve => (this.finished_callback = resolve));
   }
 

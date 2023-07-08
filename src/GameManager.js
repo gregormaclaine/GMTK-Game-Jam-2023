@@ -8,11 +8,24 @@ class GameManager {
     this.state = 'game';
 
     this.timer = new GameTimer(day, this.end_day.bind(this));
-    this.qte = new QuickTimeEvent(4, PI / 4);
+    this.qte = new QuickTimeEvent(1.4, PI / 8);
     this.npc_fish = [
       new NPCFish([200, 500], images['fish']),
       new NPCFish([600, 400], images['fish'])
     ];
+
+    // Add lots of ornamental background fish
+    // for (let i = 0; i < 20; i++) {
+    //   this.npc_fish.push(
+    //     new NPCFish(
+    //       [random(0, 800), random(INVISIBLE_CEILING, 600)],
+    //       images['fish'],
+    //       random(-PI, PI),
+    //       true
+    //     )
+    //   );
+    // }
+
     this.fish_warner = new FishWarner(this.npc_fish);
     this.player = new PlayerFish([400, 300], images['fish']);
     this.hook = new Hook([100, 100], images);
@@ -48,7 +61,15 @@ class GameManager {
 
     if (result) {
       // Quicktime Success
-      if (result === 2) this.score.increase_combo();
+      if (fish === this.player) this.score.add_score(50 * (result + 1));
+      if (result === 2) {
+        this.score.increase_combo();
+        this.qte.scale_target_arc(pow(1 / this.score.combo, 1.5));
+      } else {
+        this.score.combo = 1;
+        this.qte.reset_target_arc();
+      }
+
       this.state = 'game';
       this.hook_on_cooldown = true;
       setTimeout(

@@ -110,11 +110,11 @@ class NPCFish {
     image(this.image, -this.size[0] / 2, -this.size[1] / 2, ...this.size);
     pop();
 
-    if (!this.in_background && this.is_near_hook(hook_pos)) {
-      stroke('lime');
-      strokeWeight(1);
-      line(...this.pos, ...hook_pos);
-    }
+    // if (!this.in_background && this.is_near_hook(hook_pos)) {
+    //   stroke('lime');
+    //   strokeWeight(1);
+    //   line(...this.pos, ...hook_pos);
+    // }
 
     this.hitbox.show();
   }

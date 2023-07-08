@@ -128,7 +128,9 @@ class GameManager {
 
     this.npc_fish.filter(f => f.in_background).forEach(f => f.show());
     this.hook.show();
-    this.npc_fish.filter(f => !f.in_background).forEach(f => f.show());
+    this.npc_fish
+      .filter(f => !f.in_background)
+      .forEach(f => f.show(this.hook.pos));
     if (this.state !== 'losing-fish') this.player.show();
     this.score.show();
     this.timer.show();
@@ -142,7 +144,7 @@ class GameManager {
       case 'game':
         this.hook.update();
         this.player.update();
-        this.npc_fish.forEach(f => f.update());
+        this.npc_fish.forEach(f => f.update(this.hook));
         this.timer.update();
         this.fish_warner.update();
 
@@ -153,7 +155,7 @@ class GameManager {
         this.player.update();
       case 'losing-fish':
         this.hook.update();
-        this.npc_fish.forEach(f => f.update());
+        this.npc_fish.forEach(f => f.update(null));
         return;
 
       case 'quicktime':

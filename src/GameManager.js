@@ -90,6 +90,10 @@ class GameManager {
     cursor();
     background(240);
 
+    stroke(0);
+    strokeWeight(1);
+    line(0, INVISIBLE_CEILING, width, INVISIBLE_CEILING);
+
     switch (this.state) {
       case 'game':
       case 'quicktime':

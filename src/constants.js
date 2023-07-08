@@ -1,0 +1,1 @@
+const INVISIBLE_CEILING = 60;

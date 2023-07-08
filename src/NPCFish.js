@@ -17,7 +17,7 @@ class NPCFish {
     if (this.pos[0] + this.size[0] / 2 > width) return false;
     if (this.pos[0] - this.size[0] / 2 < 0) return false;
     if (this.pos[1] + this.size[1] / 2 > height) return false;
-    if (this.pos[1] - this.size[1] / 2 < 0) return false;
+    if (this.pos[1] - this.size[1] / 2 < INVISIBLE_CEILING) return false;
     return true;
   }
 
@@ -25,7 +25,7 @@ class NPCFish {
     if (this.pos[0] + this.size[0] / 2 > width) return -PI;
     if (this.pos[0] - this.size[0] / 2 < 0) return 0;
     if (this.pos[1] + this.size[1] / 2 > height) return -PI / 2;
-    if (this.pos[1] - this.size[1] / 2 < 0) return PI / 2;
+    if (this.pos[1] - this.size[1] / 2 < INVISIBLE_CEILING) return PI / 2;
     return true;
   }
 

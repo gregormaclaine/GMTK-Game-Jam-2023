@@ -30,8 +30,8 @@ class PlayerFish {
       this.vel.y = 0;
     }
 
-    if (this.pos.y - this.size[1] / 2 < 0) {
-      this.pos.y = this.size[1] / 2;
+    if (this.pos.y - this.size[1] / 2 < INVISIBLE_CEILING) {
+      this.pos.y = INVISIBLE_CEILING + this.size[1] / 2;
       this.vel.y = 0;
     }
   }

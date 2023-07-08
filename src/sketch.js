@@ -3,7 +3,9 @@ const audio = new JL.Audio([], []);
 let scenes;
 
 function preload() {
-  images['fish'] = loadImage('assets/img/fish-2.png');
+  images['fish'] = loadImage('assets/img/fish/main.png');
+  images['muscle-fish'] = loadImage('assets/img/fish/muscle.png');
+
   images['hook'] = loadImage('assets/img/fish-hook.png');
   images['star'] = loadImage('assets/img/star.png');
   images['worm'] = loadImage('assets/img/worm.png');

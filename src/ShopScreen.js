@@ -22,7 +22,8 @@ class ShopItem {
 
   show() {
     imageMode(CENTER);
-    image(this.img, this.pos[0], this.pos[1], 100, 100);
+    const size = this.contains_mouse() ? 110 : 100;
+    image(this.img, this.pos[0], this.pos[1], size, size);
 
     if (this.contains_mouse() && this.available) {
       cursor('pointer');

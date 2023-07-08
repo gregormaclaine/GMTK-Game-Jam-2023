@@ -13,6 +13,7 @@ class Gif {
     this.image.hide();
     this.image.style('width', `${this.width}px`);
     this.image.style('height', 'auto');
+    this.image.class('prevent-select');
 
     this.showing = false;
 

@@ -57,7 +57,7 @@ class ShopScreen {
     this.continue.handle_click();
   }
 
-  open() {
+  open(fish_lost) {
     this.images['spinning-fish'].fade_in([width * 0.5, height * 0.5]);
   }
 

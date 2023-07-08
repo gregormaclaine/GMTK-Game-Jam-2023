@@ -17,6 +17,25 @@ function preload() {
     alt: 'feesh',
     width: 400
   });
+
+  images['laugh-gifs'] = [
+    new Gif({
+      path: 'assets/img/end/laugh-1.gif',
+      alt: 'HAHAHAHAHAHAHAHA',
+      width: 200
+    }),
+    new Gif({
+      path: 'assets/img/end/laugh-2.gif',
+      alt: 'HAHAHAHAHAHAHAHA',
+      width: 200
+    }),
+    new Gif({
+      path: 'assets/img/end/laugh-3.gif',
+      alt: 'HAHAHAHAHAHAHAHA',
+      width: 200
+    })
+  ];
+
   audio.preload();
 }
 
@@ -36,6 +55,7 @@ function keyPressed() {
 }
 
 function draw() {
+  cursor();
   scenes.show();
   scenes.update();
 }

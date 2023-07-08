@@ -12,6 +12,11 @@ class SceneManager {
     this.dialogue = new DialogueManager();
 
     this.menu_scene = new MenuScreen(images, this.dialogue);
+    this.end_scene = new EndScreen(
+      images,
+      this.dialogue,
+      this.exit_end_screen.bind(this)
+    );
     this.shop_scene = new ShopScreen(images, this.exit_menu.bind(this));
     this.initialise_new_game_day();
 
@@ -44,9 +49,10 @@ class SceneManager {
     await this.fade('out');
     if (this.current_game_day < 4 && this.fish_left > 0) {
       this.state = 'shop';
-      this.shop_scene.open();
+      this.shop_scene.open(fish_lost);
     } else {
       this.state = 'end';
+      this.end_scene.open({ result: this.fish_left > 0 ? 'win' : 'lose' });
     }
     await this.fade('in');
   }
@@ -55,6 +61,12 @@ class SceneManager {
     this.initialise_new_game_day();
     await this.fade('out');
     this.state = 'game';
+    await this.fade('in');
+  }
+
+  async exit_end_screen() {
+    await this.fade('out');
+    this.state = 'menu';
     await this.fade('in');
   }
 
@@ -70,6 +82,8 @@ class SceneManager {
         return this.shop_scene.handle_click();
       case 'menu':
         return this.menu_scene.handle_click();
+      case 'end':
+        return this.end_scene.handle_click();
     }
   }
 
@@ -94,6 +108,10 @@ class SceneManager {
 
       case 'menu':
         this.menu_scene.show();
+        break;
+
+      case 'end':
+        this.end_scene.show();
         break;
     }
 
@@ -127,6 +145,10 @@ class SceneManager {
 
       case 'menu':
         this.menu_scene.update();
+        break;
+
+      case 'end':
+        this.end_scene.update();
         break;
     }
   }

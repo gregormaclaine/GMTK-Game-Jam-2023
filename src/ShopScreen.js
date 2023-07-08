@@ -54,6 +54,11 @@ class ShopScreen {
     this.images['spinning-fish'].start_loop([800, 200]);
   }
 
+  close() {
+    this.images['spinning-fish'].stop_loop();
+    this.start_next_day();
+  }
+
   show() {
     background(200);
 

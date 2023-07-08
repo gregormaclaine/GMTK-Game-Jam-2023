@@ -1,4 +1,4 @@
-const all_gifs = []
+const all_gifs = [];
 
 class Gif {
   constructor({ path, alt, duration, width, audio }) {
@@ -25,7 +25,6 @@ class Gif {
   get_corner_pos(pos) {
     const [midx, midy] = pos;
     const gif_height = (this.width / this.image.width) * this.image.height;
-
     return [midx - this.width / 2, midy - gif_height / 2];
   }
 

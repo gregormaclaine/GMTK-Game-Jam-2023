@@ -30,6 +30,7 @@ class GameManager {
     this.player = new PlayerFish([400, 300], images['fish']);
     this.hook = new Hook([100, 100], images);
     this.score = new PlayerScore(images['star']);
+    this.pause_modal = new PauseModal();
 
     // Flag for if hook failed to catch fish and then cant for a while
     this.hook_on_cooldown = false;
@@ -101,9 +102,18 @@ class GameManager {
 
   handle_click() {
     if (this.state === 'game') this.fish_warner.handle_click();
+    if (this.state === 'pause') this.pause_modal.handle_click();
   }
 
   handle_key_press() {
+    if (this.state === 'pause') this.pause_modal.handle_key_press();
+    else if (this.state === 'game' || this.state === 'quicktime') {
+      const old_val = this.state;
+      if (keyCode === 90) {
+        this.pause_modal.open(() => (this.state = old_val));
+        return (this.state = 'pause');
+      }
+    }
     if (this.state === 'quicktime') this.qte.handle_key_press();
   }
 
@@ -115,28 +125,15 @@ class GameManager {
     strokeWeight(1);
     line(0, INVISIBLE_CEILING, width, INVISIBLE_CEILING);
 
-    switch (this.state) {
-      case 'game':
-      case 'quicktime':
-      case 'day-ending':
-        this.npc_fish.filter(f => f.in_background).forEach(f => f.show());
-        this.hook.show();
-        this.npc_fish.filter(f => !f.in_background).forEach(f => f.show());
-        this.player.show();
-        this.score.show();
-        this.timer.show();
-        this.fish_warner.show();
-        if (this.state === 'quicktime') this.qte.show();
-        return;
-
-      case 'losing-fish':
-        this.npc_fish.filter(f => f.in_background).forEach(f => f.show());
-        this.hook.show();
-        this.npc_fish.filter(f => !f.in_background).forEach(f => f.show());
-        this.score.show();
-        this.timer.show();
-        return;
-    }
+    this.npc_fish.filter(f => f.in_background).forEach(f => f.show());
+    this.hook.show();
+    this.npc_fish.filter(f => !f.in_background).forEach(f => f.show());
+    if (this.state !== 'losing-fish') this.player.show();
+    this.score.show();
+    this.timer.show();
+    if (this.state !== 'losing-fish') this.fish_warner.show();
+    if (this.state === 'quicktime' || this.state === 'pause') this.qte.show();
+    if (this.state === 'pause') this.pause_modal.show();
   }
 
   update() {
@@ -160,6 +157,10 @@ class GameManager {
 
       case 'quicktime':
         this.qte.update();
+        return;
+
+      case 'pause':
+        this.pause_modal.update();
         return;
     }
   }

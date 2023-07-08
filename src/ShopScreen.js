@@ -69,6 +69,12 @@ class ShopScreen {
   show() {
     background(200);
 
+    textAlign(CENTER);
+    fill(255);
+    strokeWeight(0);
+    textSize(28);
+    text('Upgrade available', width * 0.5, height * 0.05);
+
     textAlign(CENTER, CENTER);
     fill(255, 255, 255, 70);
     strokeWeight(0);

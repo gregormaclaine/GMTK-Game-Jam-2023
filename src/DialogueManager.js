@@ -1,8 +1,4 @@
 class DialogueManager {
-  // static DIALOGUE_RECT = [400, 475, 750, 200];
-  // static PROFILE_RECT = [125, 475, 100, 100];
-  // static TEXT_RECT = [925 / 2, 475, 525, 150];
-
   static PROFILE_RECT = [125, 475, 150, 150];
   static DIALOGUE_RECT = [750 - 525 / 2, 475, 525, 150];
   static TEXT_RECT = [750 - 525 / 2, 475, 500, 125];

@@ -7,6 +7,11 @@ function preload() {
   images['hook'] = loadImage('assets/img/fish-hook.png');
   images['star'] = loadImage('assets/img/star.png');
   images['worm'] = loadImage('assets/img/worm.png');
+  images['spinning-fish'] = new Gif({
+    path: 'assets/img/spinning-fish.gif',
+    duration: 1000,
+    alt: 'feesh'
+  });
   audio.preload();
 }
 

@@ -22,17 +22,15 @@ class Gif {
   //   this.boom_gif.parent(cnv.elt.parentElement);
   // }
 
-  calc_pos_from_rect(rect) {
-    const [x, y, w, h] = rect;
-    const [midx, midy] = [x + w / 2, y + h / 2];
+  get_corner_pos(pos) {
+    const [midx, midy] = pos;
     const gif_height = (this.width / this.image.width) * this.image.height;
 
     return [midx - this.width / 2, midy - gif_height / 2];
   }
 
-  async play(rect, sound) {
-    const pos = this.calc_pos_from_rect(rect);
-    this.image.position(...pos);
+  async play(pos, sound) {
+    this.image.position(...this.get_corner_pos(pos));
     this.image.removeAttribute('src');
     this.image.show();
 
@@ -43,10 +41,9 @@ class Gif {
     this.image.hide();
   }
 
-  start_loop(rect) {
+  start_loop(pos) {
     this.showing = true;
-    const pos = this.calc_pos_from_rect(rect);
-    this.image.position(...pos);
+    this.image.position(...this.get_corner_pos(pos));
     this.image.removeAttribute('src');
     this.image.show();
     this.image.attribute('src', this.path);

@@ -8,6 +8,7 @@ const images = {};
 function preload() {
   images['fish'] = loadImage('assets/img/fish.png');
   images['hook'] = loadImage('assets/img/fish-hook.png');
+  images['spinning-fish'] = loadImage('assets/img/spinning-fish.gif')
 }
 
 function mouseClicked() {
@@ -33,10 +34,11 @@ function setup() {
 
 function draw() {
   cursor();
-  background(240);
+  background(255);
   hook.show();
   npc_fish.forEach(f => f.show());
   a.show();
   score.show();
   player.show();
+  image(images['spinning-fish'], 200, 200);
 }

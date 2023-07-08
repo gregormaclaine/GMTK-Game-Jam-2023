@@ -1,6 +1,6 @@
 class PlayerScore {
     constructor() {
-        this.val = 100;
+        this.val = 0;
         this.x = 750;
         this.y = 40;
         this.width = 40;
@@ -26,6 +26,7 @@ class PlayerScore {
     show() {
         textSize(this.size);
         textAlign(RIGHT);
+        strokeWeight(1);
         text("Score: " + this.val, this.x, this.y);
     }
 }

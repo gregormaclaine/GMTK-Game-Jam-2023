@@ -10,7 +10,8 @@ function preload() {
   images['spinning-fish'] = new Gif({
     path: 'assets/img/spinning-fish.gif',
     duration: 1000,
-    alt: 'feesh'
+    alt: 'feesh',
+    width: 400
   });
   audio.preload();
 }

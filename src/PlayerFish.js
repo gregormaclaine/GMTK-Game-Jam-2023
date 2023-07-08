@@ -68,11 +68,6 @@ class PlayerFish {
   }
 
   show() {
-    // stroke(0);
-    // strokeWeight(1);
-    // fill('orange');
-    // circle(this.pos.x, this.pos.y, this.size[0]);
-
     push();
     translate(this.pos.x, this.pos.y);
     const angle = this.vel.heading();

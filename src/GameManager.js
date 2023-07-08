@@ -13,6 +13,7 @@ class GameManager {
       new NPCFish([200, 500], images['fish']),
       new NPCFish([600, 400], images['fish'])
     ];
+    this.fish_warner = new FishWarner(this.npc_fish);
     this.player = new PlayerFish([400, 300], images['fish']);
     this.hook = new Hook([100, 100], images['hook'], images['fish']);
     this.score = new PlayerScore();
@@ -77,7 +78,7 @@ class GameManager {
   }
 
   handle_click() {
-    if (this.state === 'game') this.npc_fish.forEach(f => f.handle_click());
+    if (this.state === 'game') this.fish_warner.handle_click();
   }
 
   handle_key_press() {
@@ -97,6 +98,7 @@ class GameManager {
         this.player.show();
         this.score.show();
         this.timer.show();
+        this.fish_warner.show();
         if (this.state === 'quicktime') this.qte.show();
         return;
 
@@ -116,6 +118,7 @@ class GameManager {
         this.player.update();
         this.npc_fish.forEach(f => f.update());
         this.timer.update();
+        this.fish_warner.update();
 
         if (!this.hook_on_cooldown) this.check_for_catches();
         return;

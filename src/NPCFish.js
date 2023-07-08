@@ -29,7 +29,7 @@ class NPCFish {
     return true;
   }
 
-  handle_click() {
+  flee_mouse() {
     const mouse = createVector(mouseX, mouseY);
     const fish = createVector(...this.pos);
     fish.sub(mouse);
@@ -58,11 +58,6 @@ class NPCFish {
   }
 
   show() {
-    // stroke(0);
-    // strokeWeight(1);
-    // fill('blue');
-    // circle(...this.pos, this.size[0]);
-
     push();
     translate(...this.pos);
     if (this.angle > PI / 2 || this.angle < -PI / 2) {

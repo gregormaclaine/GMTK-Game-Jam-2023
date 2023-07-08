@@ -20,8 +20,16 @@ class GameManager {
     this.timer = new GameTimer(day, this.end_day.bind(this));
     this.qte = new QuickTimeEvent(1.4, PI / 8);
     this.npc_fish = [
-      new NPCFish({ pos: [200, 500], image: images['fish'] }),
-      new NPCFish({ pos: [600, 500], image: images['fish'] })
+      new NPCFish({
+        pos: [200, 500],
+        image: images['fish'],
+        speed: day > 0 ? 2 : 1
+      }),
+      new NPCFish({
+        pos: [600, 500],
+        image: images['fish'],
+        speed: day > 0 ? 2 : 1
+      })
     ].slice(0, fish_left - 1);
 
     // // Add lots of ornamental background fish

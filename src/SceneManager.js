@@ -5,8 +5,8 @@ class SceneManager {
     this.images = images;
     this.audio = audio;
 
-    this.state = 'shop';
-    this.current_game_day = -1;
+    this.state = 'game';
+    this.current_game_day = 1;
 
     this.dialogue = new DialogueManager();
 
@@ -17,8 +17,6 @@ class SceneManager {
     this.fade_mode = null;
     this.fade_progress = 0;
     this.fade_completed = () => {};
-
-    this.shop_scene.open();
   }
 
   initialise_new_game_day() {
@@ -43,6 +41,7 @@ class SceneManager {
     await this.fade('out');
     if (this.current_game_day < 4) {
       this.state = 'shop';
+      this.shop_scene.open();
     } else {
       this.state = 'end';
     }

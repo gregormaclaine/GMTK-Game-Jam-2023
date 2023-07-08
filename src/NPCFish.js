@@ -5,7 +5,8 @@ class NPCFish {
     angle = 0,
     in_background = false,
     smell_distance = 160,
-    see_distance = 80
+    see_distance = 80,
+    speed = 1
   }) {
     this.pos = pos;
     this.in_background = in_background;
@@ -15,7 +16,7 @@ class NPCFish {
     this.size = [this.image.width, this.image.height];
 
     this.angle = angle;
-    this.vel = 1;
+    this.vel = speed;
     this.noise_offset = random(0, 100);
     this.max_angle_change = PI / 100;
 

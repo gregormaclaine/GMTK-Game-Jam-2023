@@ -1,16 +1,20 @@
 class Hook {
   static BASE_REEL_IN_SPEED = 2;
 
-  constructor(start_pos, image, fish_sprite) {
+  constructor(start_pos, images) {
     this.pos = start_pos;
 
-    this.image = image;
+    this.image = images['hook'];
     this.image.resize(30, 0);
     this.size = [this.image.width, this.image.height];
 
-    this.fish_sprite = fish_sprite;
+    this.fish_sprite = images['fish'];
     this.fish_sprite.resize(80, 0);
     this.fish_size = [this.fish_sprite.width, this.fish_sprite.height];
+
+    this.worm_sprite = images['worm'];
+    this.worm_sprite.resize(40, 0);
+    this.worm_size = [this.worm_sprite.width, this.worm_sprite.height];
 
     this.angle = PI / 4;
     this.vel = 1;
@@ -18,6 +22,8 @@ class Hook {
     this.max_angle_change = PI / 80;
 
     this.hitbox = new HitBox(this.pos, this.size);
+
+    this.has_worm = true;
 
     // Flag for when the hook has successfully caught a fish
     this.hooked_fish = false;
@@ -90,6 +96,15 @@ class Hook {
         this.pos[1] - this.fish_size[1] / 6,
         ...this.fish_size
       );
+    } else if (this.has_worm) {
+      push();
+      translate(
+        this.pos[0] - this.worm_size[0] / 2 + 10,
+        this.pos[1] - this.worm_size[1] / 6
+      );
+      rotate(PI / 10);
+      image(this.worm_sprite, 0, 0, ...this.worm_size);
+      pop();
     }
 
     this.hitbox.show();

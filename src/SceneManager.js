@@ -14,7 +14,6 @@ class SceneManager {
   }
 
   async fade(mode) {
-    console.log('fading');
     this.fade_mode = mode;
     this.fade_progress = 0;
     await new Promise(resolve => (this.fade_completed = resolve));

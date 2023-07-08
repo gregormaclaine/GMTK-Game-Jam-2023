@@ -4,6 +4,8 @@ let scenes;
 function preload() {
   images['fish'] = loadImage('assets/img/fish.png');
   images['hook'] = loadImage('assets/img/fish-hook.png');
+  images['star'] = loadImage('assets/img/star.png');
+  images['worm'] = loadImage('assets/img/worm.png');
 }
 
 function mouseClicked() {

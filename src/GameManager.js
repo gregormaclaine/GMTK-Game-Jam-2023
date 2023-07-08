@@ -15,8 +15,8 @@ class GameManager {
     ];
     this.fish_warner = new FishWarner(this.npc_fish);
     this.player = new PlayerFish([400, 300], images['fish']);
-    this.hook = new Hook([100, 100], images['hook'], images['fish']);
-    this.score = new PlayerScore();
+    this.hook = new Hook([100, 100], images);
+    this.score = new PlayerScore(images['star']);
 
     // Flag for if hook failed to catch fish and then cant for a while
     this.hook_on_cooldown = false;
@@ -38,7 +38,7 @@ class GameManager {
 
   end_day() {
     // Prepare game for fading out
-    this.end_game({ fish_lost: false });
+    this.end_game({ fish_lost: false, score: this.score.score });
     this.state = 'day-ending';
   }
 
@@ -48,6 +48,7 @@ class GameManager {
 
     if (result) {
       // Quicktime Success
+      if (result === 2) this.score.increase_combo();
       this.state = 'game';
       this.hook_on_cooldown = true;
       setTimeout(
@@ -74,7 +75,7 @@ class GameManager {
     }
 
     await this.hook.run_catch_animation();
-    this.end_game({ fish_lost: true });
+    this.end_game({ fish_lost: true, score: this.score.score });
   }
 
   handle_click() {

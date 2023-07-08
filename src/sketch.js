@@ -1,44 +1,27 @@
-let a;
-let npc_fish = [];
-let player;
-let hook;
-let score;
 const images = {};
+let scenes;
 
 function preload() {
   images['fish'] = loadImage('assets/img/fish.png');
   images['hook'] = loadImage('assets/img/fish-hook.png');
-  images['spinning-fish'] = loadImage('assets/img/spinning-fish.gif')
+  images['star'] = loadImage('assets/img/star.png');
+  images['worm'] = loadImage('assets/img/worm.png');
 }
 
 function mouseClicked() {
-  // a.trigger().then(console.log);
-  // npc_fish.forEach(f => console.log(f.is_on_screen()));
-  npc_fish.forEach(f => f.handle_click());
+  scenes.handle_click();
 }
 
 function keyPressed() {
   // console.log(keyCode);
-  a.handle_key_press();
+  scenes.handle_key_press();
 }
 
 function setup() {
   createCanvas(800, 600);
-  a = new QuickTimeEvent();
-  score = new PlayerScore();
-  npc_fish.push(new NPCFish([200, 500], images['fish']));
-  npc_fish.push(new NPCFish([600, 400], images['fish']));
-  player = new PlayerFish([400, 300], images['fish']);
-  hook = new Hook([100, 100], images['hook']);
+  scenes = new SceneManager(images);
 }
 
 function draw() {
-  cursor();
-  background(255);
-  hook.show();
-  npc_fish.forEach(f => f.show());
-  a.show();
-  score.show();
-  player.show();
-  image(images['spinning-fish'], 200, 200);
+  scenes.show();
 }

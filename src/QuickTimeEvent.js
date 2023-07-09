@@ -115,7 +115,7 @@ class QuickTimeEvent {
   show() {
     if (!this.active && !this.fading && !this.stopping) return;
     // Draw total arc
-    fill(30, 144, 255, this.opacity);
+    fill(5, 80, 153, this.opacity);
     strokeWeight(0);
     arc(...this.pos, this.size * 2, this.size * 2, ...this.total_arc_angles);
 

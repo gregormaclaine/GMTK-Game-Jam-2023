@@ -79,7 +79,7 @@ class GameManager {
     this.wings_effect = new ParticleEffect(images['wings'], 50, 30, 1);
 
     this.hook = new Hook({
-      pos: [100, 100],
+      pos: [500, 100],
       images,
       speed: difficulty > 0 ? 3 : 1.5,
       fail_chance: has_ab('luck-3') ? 0.5 : 0,
@@ -102,6 +102,8 @@ class GameManager {
 
     this.sky = new Sky(images['sun']);
     this.sky.begin();
+
+    this.fisherman = new Fisherman(images['fisherman'], difficulty);
   }
 
   get_player_fish() {
@@ -238,15 +240,18 @@ class GameManager {
   }
 
   show() {
-    background(15, 94, 156);
-
-    stroke(0);
-    strokeWeight(1);
-    line(0, INVISIBLE_CEILING, width, INVISIBLE_CEILING);
-    imageMode(CENTER);
-    image(this.images['pause-tooltip'], 725, 575, 100, 25);
-
     this.sky.show();
+
+    imageMode(CENTER);
+    image(images['game-background'], width / 2, height / 2, width, height);
+
+    // stroke(0);
+    // strokeWeight(1);
+    // line(0, INVISIBLE_CEILING, width, INVISIBLE_CEILING);
+
+    image(this.images['pause-tooltip'], 75, 575, 100, 25);
+
+    this.fisherman.show();
 
     this.npc_fish.filter(f => f.in_background).forEach(f => f.show());
     this.hook.show();

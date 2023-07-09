@@ -59,13 +59,14 @@ class EndScreen {
   }
 
   show() {
-    background(200);
+    imageMode(CORNER);
+    image(this.images['end-background'], 0, 0, width, height);
 
     switch (this.state) {
       case 'lose':
         textAlign(CENTER);
         fill(255);
-        strokeWeight(2);
+        strokeWeight(3);
         stroke(0);
         textSize(50);
         text('YOU LOSE!', width * 0.5, height * 0.4);
@@ -76,7 +77,7 @@ class EndScreen {
       case 'win':
         textAlign(CENTER);
         fill(255);
-        strokeWeight(2);
+        strokeWeight(3);
         stroke(0);
         textSize(50);
         text('YOU WIN!', width * 0.5, height * 0.25);

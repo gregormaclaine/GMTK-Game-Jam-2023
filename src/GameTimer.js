@@ -37,11 +37,11 @@ class GameTimer {
     strokeWeight(1);
     fill(0);
     textSize(25);
-    textAlign(LEFT, CENTER);
+    textAlign(RIGHT, CENTER);
     const hour = this.current_hour();
     const t = `${GameTimer.DAYS[this.day]} ${hour > 12 ? hour - 12 : hour}${
       hour >= 12 ? 'PM' : 'AM'
     }`;
-    text(t, 30, 30);
+    text(t, 770, 30);
   }
 }

@@ -80,10 +80,7 @@ class Sky {
     // strokeWeight(0);
     // circle(this.current_x(), this.current_y(), 40);
 
-    rectMode(CORNER);
-    fill(this.sky_color());
-    strokeWeight(0);
-    rect(0, 0, width, this.sky_height);
+    background(this.sky_color());
 
     imageMode(CENTER);
     image(this.image, this.current_x(), this.current_y(), 80, 80);

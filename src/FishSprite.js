@@ -58,7 +58,8 @@ class FishSprite {
       rotate(this.angle);
     }
 
-    image(this.image, -this.size[0] / 2, -this.size[1] / 2, ...this.true_size);
+    imageMode(CENTER);
+    image(this.image, 0, 0, ...this.true_size);
     pop();
 
     this.hitbox.show();

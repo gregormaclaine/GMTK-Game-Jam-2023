@@ -7,21 +7,39 @@ class GameManager {
     day = 0,
     upgrades,
     fish_left = 3,
-    dialogue
+    dialogue,
+    has_ab
   }) {
     this.images = images;
     this.end_game = end_game;
     this.day = day;
     this.upgrades = upgrades;
     this.dialogue = dialogue;
+    this.has_ab = has_ab;
 
     this.state = 'game';
 
     this.timer = new GameTimer(day, this.end_day.bind(this));
-    this.qte = new QuickTimeEvent(1.4 - day * 0.15, PI / 8);
+    this.qte = new QuickTimeEvent(
+      1.4 - (has_ab('reaction-1') ? day - 1 : day) * 0.15,
+      PI / 8,
+      has_ab('reaction-2') ? 3 / 5 : 1 / 3
+    );
     this.npc_fish = [
-      new NPCFish({ pos: [200, 500], images, speed: day > 0 ? 2 : 1 }),
-      new NPCFish({ pos: [600, 500], images, speed: day > 0 ? 2 : 1 })
+      new NPCFish({
+        pos: [200, 500],
+        images,
+        speed: day > 0 ? 2 : 1,
+        see_distance: has_ab('vision-1') ? 160 : 80,
+        smell_distance: has_ab('vision-2') ? 80 : 160
+      }),
+      new NPCFish({
+        pos: [600, 500],
+        images,
+        speed: day > 0 ? 2 : 1,
+        see_distance: has_ab('vision-1') ? 160 : 80,
+        smell_distance: has_ab('vision-2') ? 80 : 160
+      })
     ].slice(0, fish_left - 1);
 
     // // Add lots of ornamental background fish
@@ -36,8 +54,17 @@ class GameManager {
     //   );
     // }
 
-    this.fish_warner = new FishWarner(this.npc_fish);
-    this.player = new PlayerFish([400, 300], images);
+    this.fish_warner = new FishWarner(
+      this.npc_fish,
+      has_ab('cooldown-1') ? 4 : 6
+    );
+    this.player = new PlayerFish(
+      [400, 300],
+      images,
+      has_ab('agility-1') ? 9 : 6,
+      has_ab('agility-1') ? 0.6 : 0.3,
+      has_ab('agility-2') ? 0.1 : 0.02
+    );
     this.hook = new Hook({
       pos: [100, 100],
       images,

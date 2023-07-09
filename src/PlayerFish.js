@@ -1,11 +1,17 @@
 class PlayerFish {
-  constructor(start_pos, images) {
+  constructor(
+    start_pos,
+    images,
+    max_vel = 6,
+    acceleration = 0.3,
+    damping = 0.02
+  ) {
     this.pos = createVector(...start_pos);
 
     this.vel = createVector(0, 0);
-    this.max_vel = 6;
-    this.acceleration = 0.3;
-    this.damping = 0.02;
+    this.max_vel = max_vel;
+    this.acceleration = acceleration;
+    this.damping = damping;
 
     this.sprite = new FishSprite({
       fish: 'muscle-crown-fish',

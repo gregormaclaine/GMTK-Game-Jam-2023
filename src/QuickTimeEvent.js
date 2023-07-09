@@ -3,7 +3,7 @@ const exp_interp = (a, b, p) => pow(2, (p - a) / (b - a));
 class QuickTimeEvent {
   static FADE_TIME = 0.2;
 
-  constructor(time = 1, arc_size = PI / 15) {
+  constructor(time = 1, arc_size = PI / 15, critical_portion) {
     this.pos = [width / 2, height / 2];
 
     this.base_time = time;
@@ -14,6 +14,7 @@ class QuickTimeEvent {
 
     this.size = 150;
     this.total_arc_angles = [-PI / 2, (PI * 2) / 5];
+    this.critical_portion = critical_portion;
 
     this.progression = 0;
     this.active = false;
@@ -44,7 +45,8 @@ class QuickTimeEvent {
 
   combo_arc_angles() {
     const targ_angs = this.target_arc_angles();
-    return [targ_angs[0] + this.arc_size / 3, targ_angs[1] - this.arc_size / 3];
+    const diff = (this.arc_size * (1 - this.critical_portion)) / 2;
+    return [targ_angs[0] + diff, targ_angs[1] - diff];
   }
 
   get opacity() {

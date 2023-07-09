@@ -51,7 +51,7 @@ class ShopScreen {
 
   handle_click() {
     this.shop_items.forEach(i => i.handle_click());
-    // this.continue.handle_click();
+    this.continue.handle_click();
   }
 
   open(fish_lost) {
@@ -75,6 +75,7 @@ class ShopScreen {
 
     fill(255, 255, 255, 70);
     strokeWeight(0);
+    stroke(0);
     textSize(120);
     text('SKILL STORE', width * 0.5, height * 0.5);
 

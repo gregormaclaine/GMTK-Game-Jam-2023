@@ -1,7 +1,7 @@
 class FishWarner {
-  constructor(npc_fish) {
+  constructor(npc_fish, cooldown) {
     this.npc_fish = npc_fish;
-    this.cooldown = 6; // Seconds
+    this.cooldown = cooldown; // Seconds
 
     this.pos = [width - 60 - 20, height - 10 - 20];
     this.size = [60, 10];

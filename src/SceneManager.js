@@ -35,7 +35,8 @@ class SceneManager {
       day: this.current_game_day,
       upgrades: this.shop_scene.unlocked_upgrades,
       dialogue: this.dialogue,
-      fish_left: this.fish_left
+      fish_left: this.fish_left,
+      has_ab: ab => this.shop_scene.unlocked_upgrades[ab]
     });
   }
 

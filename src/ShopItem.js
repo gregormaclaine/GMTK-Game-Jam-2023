@@ -14,7 +14,7 @@ class ShopItem {
       this.pos,
       this.outline_color,
       side,
-      () => shop.buy(this.ability)
+      () => shop.unlock(this.ability)
     );
 
     this.hovered = false;

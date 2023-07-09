@@ -12,20 +12,22 @@ class ShopScreen {
       'luck-2': false, // Chance for triple points in combo
       'luck-3': false, // Chance for any caught fish to be let off the hook
       'vision-1': false, // Fish can see an empty hook from farther away
-      'vision-2': false // Fish have worse smell
+      'vision-2': false, // Fish have worse smell,
+      'cooldown-1': false // Shorter scream cooldown
     };
 
     // prettier-ignore
     this.shop_items = [
-      new ShopItem({ pos: [250, 125], shop: this, ability: 'agility-1',  side: 'right', name: 'Rocket Booster', desc: 'Attach rockets to increase acceleration' }),
-      new ShopItem({ pos: [100, 125], shop: this, ability: 'agility-2',  side: 'right', name: '', desc: '' }),
-      new ShopItem({ pos: [550, 125], shop: this, ability: 'reaction-1', side: 'left',  name: '', desc: '' }),
-      new ShopItem({ pos: [700, 125], shop: this, ability: 'reaction-2', side: 'left',  name: '', desc: '' }),
+      new ShopItem({ pos: [250, 150], shop: this, ability: 'agility-1',  side: 'right', name: 'Rocket Booster', desc: 'Attach rockets to increase acceleration' }),
+      new ShopItem({ pos: [100, 150], shop: this, ability: 'agility-2',  side: 'right', name: '', desc: '' }),
+      new ShopItem({ pos: [550, 150], shop: this, ability: 'reaction-1', side: 'left',  name: '', desc: '' }),
+      new ShopItem({ pos: [700, 150], shop: this, ability: 'reaction-2', side: 'left',  name: '', desc: '' }),
       new ShopItem({ pos: [250, 475], shop: this, ability: 'luck-1',     side: 'right', name: '', desc: '' }),
-      new ShopItem({ pos: [100, 400], shop: this, ability: 'luck-2',     side: 'right', name: '', desc: '' }),
+      new ShopItem({ pos: [100, 380], shop: this, ability: 'luck-2',     side: 'right', name: '', desc: '' }),
       new ShopItem({ pos: [100, 550], shop: this, ability: 'luck-3',     side: 'right', name: '', desc: '' }),
       new ShopItem({ pos: [550, 475], shop: this, ability: 'vision-1',   side: 'left',  name: 'Bigger Eyes', desc: 'Other fish can more easily see the fishing hook' }),
       new ShopItem({ pos: [700, 475], shop: this, ability: 'vision-2',   side: 'left',  name: '', desc: '' }),
+      new ShopItem({ pos: [400, 100], shop: this, ability: 'cooldown-1', side: 'right', name: '', desc: '' }),
     ];
 
     this.continue = new JL.Button(
@@ -79,8 +81,8 @@ class ShopScreen {
     // Draw lines to all the buttons
     strokeWeight(5);
     stroke(255);
-    line(125, 125, 225, 125);
-    line(575, 125, 675, 125);
+    line(125, 150, 225, 150);
+    line(575, 150, 675, 150);
     line(575, 475, 675, 475);
 
     line(225, 475, 100, 360);
@@ -90,6 +92,7 @@ class ShopScreen {
     line(400, 300, 575, 125);
     line(400, 300, 575, 475);
     line(400, 300, 225, 475);
+    line(400, 300, 400, 125);
 
     this.shop_items.forEach(i => i.show());
 

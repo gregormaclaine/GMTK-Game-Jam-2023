@@ -24,6 +24,7 @@ function preload() {
   images['reaction-2'] = loadImage('assets/img/shop_icons/reaction_2.png');
   images['vision-1'] = loadImage('assets/img/shop_icons/vision_1.png');
   images['vision-2'] = loadImage('assets/img/shop_icons/vision_2.png');
+  images['cooldown-1'] = loadImage('assets/img/shop_icons/cooldown_1.png');
 
   // Gifs
   images['spinning-fish'] = new Gif({

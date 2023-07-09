@@ -30,15 +30,20 @@ class ShopScreen {
       new ShopItem({ pos: [400, 100], shop: this, ability: 'cooldown-1', side: 'right', name: 'Fish Roar ++', desc: 'Improved vocalisation tech enables more regular screaming' }),
     ];
 
-    this.continue = new JL.Button(
-      'Continue',
-      [width * 0.85, height * 0.9, 200, 100],
-      this.close.bind(this)
-    );
-
     this.open_item = null;
 
     this.available_upgrades = 0;
+
+    this.continue_rect = [700, 34, 150, 50];
+  }
+
+  mouse_over_continue() {
+    const [x, y, w, h] = this.continue_rect;
+    if (mouseX < x - w / 2) return false;
+    if (mouseX > x + w / 2) return false;
+    if (mouseY < y - h / 2) return false;
+    if (mouseY > y + h / 2) return false;
+    return true;
   }
 
   is_available(ability) {
@@ -67,7 +72,8 @@ class ShopScreen {
 
   handle_click() {
     this.shop_items.forEach(i => i.handle_click());
-    this.continue.handle_click();
+    if (this.available_upgrades === 0 && this.mouse_over_continue())
+      this.close();
   }
 
   open(fish_lost) {
@@ -135,9 +141,15 @@ class ShopScreen {
       });
     }
 
-    image(this.images['cont-button'], 700, 50, 150, 75);
-
-    // this.continue.show();
+    if (this.mouse_over_continue() && this.available_upgrades === 0)
+      cursor('pointer');
+    image(this.images['cont-button'], ...this.continue_rect);
+    if (this.available_upgrades !== 0) {
+      fill(0, 100);
+      strokeWeight(0);
+      rectMode(CENTER);
+      rect(...this.continue_rect);
+    }
   }
 
   update() {

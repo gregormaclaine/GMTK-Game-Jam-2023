@@ -5,7 +5,7 @@ class SceneManager {
     this.images = images;
     this.audio = audio;
 
-    this.state = 'shop';
+    this.state = 'game';
     this.current_game_day = -1;
     this.fish_left = 3;
 
@@ -23,8 +23,6 @@ class SceneManager {
     this.fade_mode = null;
     this.fade_progress = 0;
     this.fade_completed = () => {};
-
-    this.shop_scene.open(false);
   }
 
   initialise_new_game_day() {

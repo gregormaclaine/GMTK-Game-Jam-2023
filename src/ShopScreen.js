@@ -18,16 +18,16 @@ class ShopScreen {
 
     // prettier-ignore
     this.shop_items = [
-      new ShopItem({ pos: [250, 150], shop: this, ability: 'agility-1',  side: 'right', name: 'Rocket Booster', desc: 'Attach rockets to increase acceleration' }),
-      new ShopItem({ pos: [100, 150], shop: this, ability: 'agility-2',  side: 'right', name: '', desc: '' }),
-      new ShopItem({ pos: [550, 150], shop: this, ability: 'reaction-1', side: 'left',  name: '', desc: '' }),
-      new ShopItem({ pos: [700, 150], shop: this, ability: 'reaction-2', side: 'left',  name: '', desc: '' }),
-      new ShopItem({ pos: [250, 475], shop: this, ability: 'luck-1',     side: 'right', name: '', desc: '' }),
-      new ShopItem({ pos: [100, 380], shop: this, ability: 'luck-2',     side: 'right', name: '', desc: '' }),
-      new ShopItem({ pos: [100, 550], shop: this, ability: 'luck-3',     side: 'right', name: '', desc: '' }),
-      new ShopItem({ pos: [550, 475], shop: this, ability: 'vision-1',   side: 'left',  name: 'Bigger Eyes', desc: 'Other fish can more easily see the fishing hook' }),
-      new ShopItem({ pos: [700, 475], shop: this, ability: 'vision-2',   side: 'left',  name: '', desc: '' }),
-      new ShopItem({ pos: [400, 100], shop: this, ability: 'cooldown-1', side: 'right', name: '', desc: '' }),
+      new ShopItem({ pos: [250, 150], shop: this, ability: 'agility-1',  side: 'right', name: 'Rocket Fish', desc: 'Attach rockets to increase acceleration' }),
+      new ShopItem({ pos: [100, 150], shop: this, ability: 'agility-2',  side: 'right', name: 'Mega Fin', desc: 'Buff up your fins to improve decceleration' }),
+      new ShopItem({ pos: [550, 150], shop: this, ability: 'reaction-1', side: 'left',  name: 'Ultra Instinct', desc: 'Max out your fish neurones to slow down quicktimes' }),
+      new ShopItem({ pos: [700, 150], shop: this, ability: 'reaction-2', side: 'left',  name: 'Quicktime Mastery', desc: 'Perform ancient rituals to increase the size of quicktimes' }),
+      new ShopItem({ pos: [250, 475], shop: this, ability: 'luck-1',     side: 'right', name: 'Lucky Star', desc: 'Fish wishes come true, chance to get double points on QTE' }),
+      new ShopItem({ pos: [100, 380], shop: this, ability: 'luck-2',     side: 'right', name: 'Starry Show', desc: 'Be the star of the show, chance to get triple points in combo' }),
+      new ShopItem({ pos: [100, 550], shop: this, ability: 'luck-3',     side: 'right', name: 'Redemption', desc: 'Fish have a chance to be let off the hook without losing points' }),
+      new ShopItem({ pos: [550, 475], shop: this, ability: 'vision-1',   side: 'left',  name: 'Eye Surgery', desc: 'New surgery allows fish to see the hook from further' }),
+      new ShopItem({ pos: [700, 475], shop: this, ability: 'vision-2',   side: 'left',  name: 'Trash Smell', desc: 'Failed nose surgery has greatly reduced ability to smell bait' }),
+      new ShopItem({ pos: [400, 100], shop: this, ability: 'cooldown-1', side: 'right', name: 'Fish Roar ++', desc: 'Improved vocalisation tech enables more regular screaming' }),
     ];
 
     this.continue = new JL.Button(

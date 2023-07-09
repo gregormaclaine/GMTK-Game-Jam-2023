@@ -36,7 +36,6 @@ class PauseModal {
     textSize(40);
     text('Game Paused', width / 2, height * 0.45);
 
-    textAlign(CENTER);
     fill(255);
     textSize(28);
     text('Your score: ' + this.score.score, width / 2, height * 0.6);

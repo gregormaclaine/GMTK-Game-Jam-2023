@@ -42,7 +42,7 @@ class MenuScreen {
     image(this.images['credits-button'], ...this.credits_rect);
 
     textSize(40);
-    textAlign(CENTER);
+    textAlign(CENTER, CENTER);
     stroke(0);
     strokeWeight(0);
     fill(0);

@@ -64,7 +64,7 @@ class EndScreen {
 
     switch (this.state) {
       case 'lose':
-        textAlign(CENTER);
+        textAlign(CENTER, CENTER);
         fill(255);
         strokeWeight(3);
         stroke(0);
@@ -75,14 +75,13 @@ class EndScreen {
         break;
 
       case 'win':
-        textAlign(CENTER);
+        textAlign(CENTER, CENTER);
         fill(255);
         strokeWeight(3);
         stroke(0);
         textSize(50);
         text('YOU WIN!', width * 0.5, height * 0.25);
 
-        textAlign(CENTER);
         fill(255);
         strokeWeight(2);
         stroke(0);

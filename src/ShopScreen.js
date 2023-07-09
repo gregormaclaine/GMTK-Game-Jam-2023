@@ -97,6 +97,11 @@ class ShopScreen {
   }
 
   show() {
+    if (this.dialogue.active && this.open_item) {
+      this.open_item.hovered = false;
+      this.open_item = null;
+    }
+
     background(200);
     image(this.images['underwater_bg'], 400, 300, 800, 600);
 

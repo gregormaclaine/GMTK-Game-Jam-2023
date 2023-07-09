@@ -113,7 +113,7 @@ class ShopScreen {
       });
     }
 
-    image(this.images['cont-button'], 700, 50, 150, 75);
+    image(this.images['cont-button'], 700, 50, 150, 50);
 
     // this.continue.show();
   }

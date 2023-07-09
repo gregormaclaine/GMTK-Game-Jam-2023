@@ -37,16 +37,32 @@ class ShopScreen {
     );
 
     this.open_item = null;
+
+    this.available_upgrades = 0;
   }
 
   is_available(ability) {
     // temp:
-    return true;
+    switch (ability) {
+      case 'agility-2':
+        return this.unlocked_upgrades['agility-1'];
+      case 'reaction-2':
+        return this.unlocked_upgrades['reaction-1'];
+      case 'luck-2':
+      case 'luck-3':
+        return this.unlocked_upgrades['luck-1'];
+      case 'vision-2':
+        return this.unlocked_upgrades['vision-1'];
+
+      default:
+        return true;
+    }
   }
 
   unlock(ability) {
-    // temp:
+    if (this.available_upgrades <= 0) return;
     this.unlocked_upgrades[ability] = true;
+    this.available_upgrades--;
   }
 
   handle_click() {
@@ -55,6 +71,7 @@ class ShopScreen {
   }
 
   open(fish_lost) {
+    if (!fish_lost) this.available_upgrades++;
     this.images['spinning-fish'].fade_in([width * 0.5, height * 0.5]);
   }
 
@@ -67,16 +84,20 @@ class ShopScreen {
     background(200);
     image(this.images['underwater_bg'], 400, 300, 800, 600);
 
-    textAlign(CENTER, CENTER);
+    textAlign(LEFT, TOP);
     fill(255);
     strokeWeight(0);
     textSize(28);
-    text('Upgrade available', width * 0.5, height * 0.05);
+    const msg = this.available_upgrades
+      ? '1 Upgrade Available'
+      : 'No Available Upgrades';
+    text(msg, 20, 20);
 
     fill(255, 255, 255, 70);
     strokeWeight(0);
     stroke(0);
     textSize(120);
+    textAlign(CENTER, CENTER);
     text('SKILL STORE', width * 0.5, height * 0.5);
 
     // Draw lines to all the buttons

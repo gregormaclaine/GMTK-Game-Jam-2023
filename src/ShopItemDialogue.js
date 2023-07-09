@@ -5,7 +5,10 @@ class ShopItemDialogue {
     icon_pos,
     outline_color,
     side = 'right',
-    on_buy
+    on_buy,
+    tick_image,
+    is_owned,
+    can_buy
   ) {
     this.name = name;
     this.description = description;
@@ -13,6 +16,10 @@ class ShopItemDialogue {
     this.outline_color = outline_color;
     this.side = side;
     this.on_buy = on_buy;
+    this.tick_image = tick_image;
+    this.tick_image.resize(45, 0);
+    this.is_owned = is_owned;
+    this.can_buy = can_buy;
 
     this.size = [200, 90];
   }
@@ -42,7 +49,7 @@ class ShopItemDialogue {
   }
 
   handle_click() {
-    if (this.mouse_over_buy_button()) this.on_buy();
+    if (this.mouse_over_buy_button() && !this.is_owned()) this.on_buy();
   }
 
   contains_mouse() {
@@ -101,16 +108,19 @@ class ShopItemDialogue {
     text(this.description, top_left_point[0], top_left_point[1] + 20, 120, 45);
 
     // Buy button
-    const b_hovering = this.mouse_over_buy_button();
-    fill('green');
-    circle(...this.buy_button_pos(), b_hovering ? 48 : 45);
-    textAlign(CENTER, CENTER);
-    textSize(15);
-    fill('black');
-    text('BUY', ...this.buy_button_pos());
+    if (this.is_owned()) {
+      imageMode(CENTER);
+      image(this.tick_image, ...this.buy_button_pos(), 45, 45);
+    } else {
+      const b_hovering = this.mouse_over_buy_button() && this.can_buy();
+      fill(130, 200, 22, this.can_buy() ? 255 : 100);
+      circle(...this.buy_button_pos(), b_hovering ? 48 : 45);
+      textAlign(CENTER, CENTER);
+      textSize(15);
+      fill(0, this.can_buy() ? 255 : 100);
+      text('BUY', ...this.buy_button_pos());
 
-    if (b_hovering) {
-      cursor('pointer');
+      if (b_hovering) cursor('pointer');
     }
   }
 }

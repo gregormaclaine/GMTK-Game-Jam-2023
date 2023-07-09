@@ -243,6 +243,8 @@ class GameManager {
     stroke(0);
     strokeWeight(1);
     line(0, INVISIBLE_CEILING, width, INVISIBLE_CEILING);
+    imageMode(CENTER);
+    image(this.images['pause-tooltip'], 725, 575, 100, 25);
 
     this.sky.show();
 

@@ -117,7 +117,7 @@ class ShopScreen {
     stroke(0);
     textSize(120);
     textAlign(CENTER, CENTER);
-    text('SKILL STORE', width * 0.5, height * 0.5);
+    text('SKILL STORE', width * 0.5, height * 0.47);
 
     // Draw lines to all the buttons
     strokeWeight(5);

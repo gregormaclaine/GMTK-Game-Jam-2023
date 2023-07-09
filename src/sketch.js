@@ -7,6 +7,7 @@ function preload() {
   images['star'] = loadImage('assets/img/star.png');
   images['worm'] = loadImage('assets/img/worm.png');
   images['tick'] = loadImage('assets/img/tick.png');
+  images['wings'] = loadImage('assets/img/wings.png');
   images['underwater_bg'] = loadImage('assets/img/underwater_bg.jpg');
 
   // Fish

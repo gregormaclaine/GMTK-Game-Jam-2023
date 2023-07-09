@@ -1,7 +1,10 @@
 const handle_float = num => Math.floor(num * 10000) / 10000;
 
 class PlayerScore {
-  constructor(combo_image) {
+  constructor(combo_image, double_chance = 0, triple_chance = 0) {
+    this.double_chance = double_chance;
+    this.triple_chance = triple_chance;
+
     this.score = 0;
     this.combo = 1;
 
@@ -11,11 +14,13 @@ class PlayerScore {
   }
 
   add_score(score) {
-    this.score = Math.floor(this.score + score * this.combo);
+    const double = random() < this.double_chance ? 2 : 1;
+    const triple = random() < this.triple_chance && this.combo > 1 ? 3 : 1;
+    this.score = Math.floor(this.score + score * this.combo * double * triple);
   }
 
   increase_combo() {
-    this.combo += 0.1;
+    this.combo += 0.5;
   }
 
   show() {

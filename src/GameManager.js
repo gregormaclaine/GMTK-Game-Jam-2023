@@ -73,15 +73,23 @@ class GameManager {
       fish: this.get_player_fish()
     });
 
+    this.star_effect = new ParticleEffect(images['star'], 100, 90, 1);
+    this.wings_effect = new ParticleEffect(images['wings'], 50, 30, 1);
+
     this.hook = new Hook({
       pos: [100, 100],
       images,
-      speed: day > 0 ? 3 : 1.5
+      speed: day > 0 ? 3 : 1.5,
+      fail_chance: has_ab('luck-3') ? 0.5 : 0,
+      wings_effect: this.wings_effect
     });
 
-    this.score = new PlayerScore(images['star']);
+    this.score = new PlayerScore(
+      images['star'],
+      has_ab('luck-1') ? 0.4 : 0,
+      has_ab('luck-2') ? 0.1 : 0
+    );
     this.pause_modal = new PauseModal(this.score);
-    this.star_effect = new StarParticleEffect(images['star']);
 
     // Flag for if hook failed to catch fish and then cant for a while
     this.hook_on_cooldown = false;
@@ -143,7 +151,9 @@ class GameManager {
             ? [this.player.pos.x, this.player.pos.y]
             : fish.pos
         );
-        this.qte.scale_target_arc(pow(1 / this.score.combo, 1.5));
+        this.qte.scale_target_arc(
+          pow(1 / ((this.score.combo - 1) / 5 + 1), 1.5)
+        );
       } else {
         this.score.combo = 1;
         this.qte.reset_target_arc();
@@ -175,10 +185,27 @@ class GameManager {
       this.npc_fish.push(npc_standin);
     }
 
-    await this.hook.run_catch_animation(
+    const failed = await this.hook.run_catch_animation(
       fish === this.player ? this.player.sprite.fish : 'fish'
     );
-    this.end_game({ fish_lost: true, score: this.score.score });
+
+    if (failed) {
+      this.state = 'game';
+      this.hook_on_cooldown = true;
+      setTimeout(
+        () => (this.hook_on_cooldown = false),
+        GameManager.HOOK_COOLDOWN
+      );
+      if (fish === this.player) {
+        this.player.pos.x = this.hook.pos[0];
+        this.player.pos.y = this.hook.pos[1];
+      } else {
+        this.npc_fish[this.npc_fish.length - 1] = fish;
+        fish.pos = [...this.hook.pos];
+      }
+    } else {
+      this.end_game({ fish_lost: true, score: this.score.score });
+    }
   }
 
   handle_click() {
@@ -189,7 +216,7 @@ class GameManager {
   handle_key_press() {
     if (this.state === 'pause') return this.pause_modal.handle_key_press();
 
-    if (this.state === 'game' || this.state === 'quicktime') {
+    if (['game', 'quicktime', 'losing-fish'].includes(this.state)) {
       const old_val = this.state;
       if (keyCode === 90) {
         this.pause_modal.open(() => (this.state = old_val));
@@ -217,6 +244,7 @@ class GameManager {
     this.score.show();
     this.timer.show();
     this.star_effect.show();
+    this.wings_effect.show(true, false, 'grow');
     if (this.state !== 'losing-fish') this.fish_warner.show();
     if (this.state === 'quicktime' || this.state === 'pause') this.qte.show();
     if (this.state === 'pause') this.pause_modal.show();
@@ -231,6 +259,7 @@ class GameManager {
         this.timer.update();
         this.fish_warner.update();
         this.star_effect.update();
+        this.wings_effect.update();
 
         if (!this.hook_on_cooldown) this.check_for_catches();
         return;
@@ -241,6 +270,7 @@ class GameManager {
         this.hook.update();
         this.npc_fish.forEach(f => f.update(null));
         this.star_effect.update();
+        this.wings_effect.update();
         return;
 
       case 'quicktime':

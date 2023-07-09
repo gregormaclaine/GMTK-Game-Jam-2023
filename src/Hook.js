@@ -1,9 +1,14 @@
 class Hook {
   static BASE_REEL_IN_SPEED = 2;
 
-  constructor({ pos, images, speed }) {
+  constructor({ pos, images, speed, fail_chance, wings_effect }) {
     this.pos = pos;
     this.images = images;
+    this.wings_effect = wings_effect;
+
+    this.fail_chance = fail_chance;
+    this.tried_to_fail = false;
+    this.reel_in_from_y = 0;
 
     this.image = images['hook'];
     this.image.resize(30, 0);
@@ -48,6 +53,8 @@ class Hook {
   }
 
   async run_catch_animation(fish_type) {
+    this.reel_in_from_y = this.pos[1];
+    this.tried_to_fail = false;
     this.hooked_fish = true;
     this.fish_sprite = new FishSprite({
       fish: fish_type,
@@ -55,12 +62,14 @@ class Hook {
       angle: 0,
       images: this.images
     });
-    await new Promise(resolve => (this.finish_reel_in = resolve));
+    return await new Promise(resolve => (this.finish_reel_in = resolve));
   }
 
-  async reload_bait() {
-    this.reload_status = 'waiting';
-    await timeout(random(3000, 5000));
+  async reload_bait(wait = true) {
+    if (wait) {
+      this.reload_status = 'waiting';
+      await timeout(random(3000, 5000));
+    }
     this.reload_status = 'up';
     await new Promise(resolve => (this.finish_reel_in = resolve));
     this.has_worm = true;
@@ -88,6 +97,20 @@ class Hook {
 
     if (this.hooked_fish || this.reload_status === 'up') {
       this.pos[1] -= this.get_hook_reel_speed();
+
+      if (
+        !this.tried_to_fail &&
+        max(this.reel_in_from_y, 105 + INVISIBLE_CEILING) - this.pos[1] > 100
+      ) {
+        if (random() < this.fail_chance) {
+          this.hooked_fish = false;
+          this.finish_reel_in(true);
+          this.reload_bait(false);
+          this.wings_effect.trigger(this.pos);
+        }
+        this.tried_to_fail = true;
+        return;
+      }
 
       if (this.pos[1] < -this.size[1]) this.finish_reel_in();
       return;

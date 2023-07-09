@@ -27,7 +27,7 @@ const DIALOGUE = {
     },
     {
       profile: 'pufferfish1',
-      text: "It's quite unpleasant really."
+      text: "It's quite unpleasant really. Some guy named Jon has been causing an exceptional amount of trouble lately."
     },
     {
       profile: 'pufferfish2',
@@ -65,35 +65,166 @@ const DIALOGUE = {
       profile: 'pufferfish2',
       text: "s̴͕̆̂͒i̷̞͕̝̞̎̇̂̕l̶̬̤̰̄e̵̱͖͒̐n̵̘̈̈́ć̶̡̩̩́e̵̹͌̚ ̸̨̣̺͋̈f̵̭͖͓̘̿̿̾̀ǒ̸̝͍̱̱͐̈́͑ō̸̖̅̄̎l̵̡̦͓͔͆́ ̵̙̻̀w̴̧̹̳̑͛̕e̵̤̼͔̽͂ ̶̲͖̣̩̾͌͝m̷̓͂̓͜ȕ̷͎͈͖̲š̶̥t̷̲̀̉.̴̝̫̆́ ̴̥̠̾̽e̷̼̖̔̈́͠x̴̹͔̉̏p̸̗̏͛͘l̴̦̄ä̵̘͔̝̠́̀̾͝ḯ̷̛͎̪̭͎n̵̠̗̲͋̿̍͒ ̵̰̀̀t̵̹͖͚̹́̊̚h̷̖̮̝͑͘e̸̞̱̥̜̿̽͋̈́ ̸̞̙͚͋́̂́ͅr̵̛͎͈u̸͍̽̏́̇l̶̰͑̓͜ȩ̴͚͖̺̿̀̀͑s̵̹̀̽ͅ.̴̼̈"
     },
+
+    {
+      jumpscare: true,
+      image: 'fredd'
+    },
+
+    {
+      profile: 'fredd',
+      text: "Whoa there bucko, sorry you had to see all that. I'll need to have a talk with them later."
+    },
+    {
+      profile: 'fredd',
+      text: "So the basic premise is.. well.."
+    },
+    {
+      profile: 'fredd',
+      text: "you are fish."
+    },
+    {
+      profile: 'fredd',
+      text: "Your goal is to get as high a score as you possibly can."
+    },
+    {
+      profile: 'fredd',
+      text: "Jon - the local fisherman, is trying to catch you and your friends. You get points by taking the bait he puts on the hook without getting caught yourself."
+    },
+    {
+      profile: 'fredd',
+      text: "Your fish pals swim around aimlessly, unfortunately they aren't as intellectually gifted as you. So, it is your job to keep them away from the hook by using your unique fish scream ability."
+    },
+    {
+      profile: 'fredd',
+      text: "You can click anywhere on the screen to scare your fish pals away from your cursor."
+    },
+    {
+      profile: 'fredd',
+      text: "Get as many points as you can during the day while Jon is fishing. If you don't get caught and don't lose any of your pals, those two pufferfish will help you get stronger by night."
+    },
+    {
+      profile: 'fredd',
+      text: "Just remember, you only get points if you're the one who gets the bait!"
+    },
+    {
+      profile: 'fredd',
+      text: "With each day Jon goes without catching anything, his hunger will grow. He will become more desperate and evading him will be more and more difficult."
+    },
+    {
+      profile: 'fredd',
+      text: "However, if he catches you or one of your friends, the difficulty won't increase the next day."
+    },
+    {
+      profile: 'fredd',
+      text: "Welp, that's all from me for now. Enjoyyyy :)))))"
+    }
   ],
 
   // Dialogue once the first day has ended but still on the game screen
   AFTER_GAME: [
     {
-      profile: 'crown-fish',
-      text: "And then I could come in and show off my cool crown cus i am king fish :).\nAnd I'm also an example of how the profile takes in a key to the images object"
-    }
+      profile: 'fisherman',
+      text: "Stupid fish. I'll be back for you tommorow. If only I can get through the night ..."
+    },
+    {
+      profile: 'pufferfish1',
+      text: "Welp, it would seem that's all for today."
+    },
+    {
+      profile: 'pufferfish2',
+      text: "Come with us, we have something to show you ;)"
+    },
   ],
 
   // Dialogue to happen just as the shop appears
   BEFORE_SHOP: [
     {
-      profile: 'crown-fish',
-      text: "And then I could come in and show off my cool crown cus i am king fish :).\nAnd I'm also an example of how the profile takes in a key to the images object"
-    }
+      profile: 'pufferfish1',
+      text: "Welcome to PufferFish Brothers Skills and Such."
+    },
+    {
+      profile: 'pufferfish2',
+      text: "After 6 years of being open, the name is still under development."
+    },
+    {
+      profile: 'pufferfish1',
+      text: "Here we sell various upgrades, skills and such. Usually we charge a hefty sum for even a single upgrade, but for you.."
+    },
+    {
+      profile: 'pufferfish1',
+      text: "Wait for you its free ??? ?!?!?"
+    },
+    {
+      profile: 'pufferfish2',
+      text: "Brother we are going to go out of business."
+    },
+    {
+      profile: 'pufferfish1',
+      text: "Wait this cannot be right, why do you get all these for free ????"
+    },
+    {
+      jumpscare: true,
+      image: 'fredd'
+    },
+    {
+      profile: 'fredd',
+      text: "q u i e t . . ."
+    },
+    {
+      profile: 'pufferfish1',
+      text: ". . ."
+    },
+    {
+      profile: 'pufferfish2',
+      text: ". . ."
+    },
+    {
+      profile: 'pufferfish1',
+      text: "So as I was saying, for you they're all free of course :   ^)"
+    },
+    {
+      profile: 'pufferfish2',
+      text: "Free !! :33"
+    },
+    {
+      profile: 'pufferfish1',
+      text: "Feel free to browse the upgrades available. As you unlock upgrades, more will become available."
+    },
+    {
+      profile: 'pufferfish2',
+      text: "Available Owo"
+    },
   ],
 
   // Dialogue for just before you leave the shop for the first time
   BEFORE_FIRST_LEAVE_SHOP: [
     {
-      profile: 'crown-fish',
-      text: "And then I could come in and show off my cool crown cus i am king fish :).\nAnd I'm also an example of how the profile takes in a key to the images object"
+      profile: 'pufferfish1',
+      text: "Thank you for visiting PufferFish Brother Skills and Such. See you tomorrow!"
+    },
+    {
+      profile: 'pufferfish2',
+      text: "you tomorrow! :3 <3"
     }
   ],
 
   INTRODUCE_INVISIBILITY: [
     {
-
-    }
+      profile: 'fisherman',
+      text: "Its over for you now silly fishies, I'm catching you today for sure. My wife will finally praise me and give me the love I deserve >:))"
+    },
+    {
+      profile: 'pufferfish1',
+      text: "Uh oh, it looks like Jon is getting angrier, this can't be good."
+    },
+    {
+      profile: 'pufferfish2',
+      text: "Be careful, who knows what he might be up to today :=("
+    },
+    {
+      profile: 'fredd',
+      text: "It would seem Jon has been up to no good all night, my intel suggests you be on high alert for his hook today and moving forwards."
+    },
   ]
 };

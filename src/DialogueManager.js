@@ -44,6 +44,7 @@ class DialogueManager {
 
   handle_click() {
     if (!this.contains_mouse()) return;
+    if (!this.current_dialogue || this.current_dialogue.jumpscare) return;
     const t = this.current_dialogue.text;
     const text_index = floor(lerp(0, t.length, this.progress));
     if (text_index < t.length) {

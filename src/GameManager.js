@@ -83,7 +83,9 @@ class GameManager {
       images,
       speed: difficulty > 0 ? 3 : 1.5,
       fail_chance: has_ab('luck-3') ? 0.5 : 0,
-      wings_effect: this.wings_effect
+      wings_effect: this.wings_effect,
+      invis_dur: difficulty < 3 ? 0 : difficulty === 3 ? 2 : 3,
+      is_ended: () => this.ended
     });
 
     this.score = new PlayerScore(
@@ -135,10 +137,12 @@ class GameManager {
   end_day() {
     // Prepare game for fading out
     this.end_game({ fish_lost: false, score: this.score.score });
+    this.ended = true;
     this.state = 'day-ending';
   }
 
   async run_catch_event(fish) {
+    this.hook.make_visible(true);
     this.state = 'quicktime';
     const result = await this.qte.trigger();
 
@@ -206,6 +210,7 @@ class GameManager {
         fish.pos = [...this.hook.pos];
       }
     } else {
+      this.ended = true;
       this.end_game({ fish_lost: true, score: this.score.score });
     }
   }

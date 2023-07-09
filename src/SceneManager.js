@@ -29,17 +29,30 @@ class SceneManager {
     this.fade_mode = null;
     this.fade_progress = 0;
     this.fade_completed = () => {};
-  }
 
-  start_game() {
+    this.introduced_invisibility = false;
+
+    this.current_game_day = 2;
+    this.current_difficulty = 2;
     this.state = 'game';
     this.initialise_new_game_day();
-    this.dialogue.send(DIALOGUE.BEFORE_GAME);
   }
 
-  initialise_new_game_day() {
+  async start_game() {
+    this.state = 'game';
+    await this.initialise_new_game_day();
+    await this.dialogue.send(DIALOGUE.BEFORE_GAME);
+  }
+
+  async initialise_new_game_day() {
     this.current_game_day++;
     this.current_difficulty++;
+
+    if (this.current_difficulty === 3 && !this.introduced_invisibility) {
+      await this.dialogue.send(DIALOGUE.INTRODUCE_INVISIBILITY);
+      this.introduced_invisibility = true;
+    }
+
     this.game_scene = new GameManager({
       images,
       end_game: this.end_game.bind(this),

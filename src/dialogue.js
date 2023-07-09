@@ -37,5 +37,7 @@ const DIALOGUE = {
       profile: 'crown-fish',
       text: "And then I could come in and show off my cool crown cus i am king fish :).\nAnd I'm also an example of how the profile takes in a key to the images object"
     }
-  ]
+  ],
+
+  INTRODUCE_INVISIBILITY: []
 };

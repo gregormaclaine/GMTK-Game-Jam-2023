@@ -1,10 +1,27 @@
 class Hook {
   static BASE_REEL_IN_SPEED = 2;
+  static FADE_TIME = 0.3;
 
-  constructor({ pos, images, speed, fail_chance, wings_effect }) {
+  constructor({
+    pos,
+    images,
+    speed,
+    fail_chance,
+    wings_effect,
+    invis_dur = 0, // seconds,
+    is_ended
+  }) {
     this.pos = pos;
     this.images = images;
     this.wings_effect = wings_effect;
+    this.is_ended = is_ended;
+
+    this.invis_dur = invis_dur;
+    this.invisible = false;
+    this.fade_mode = null;
+    this.fade_progress = 0;
+    this.fade_completed = () => {};
+    this.make_visible = () => {};
 
     this.fail_chance = fail_chance;
     this.tried_to_fail = false;
@@ -35,6 +52,8 @@ class Hook {
     this.finish_reload = () => {};
 
     this.reload_status = null;
+
+    this.updates_till_invis = floor(random(2, 6) * (frameRate() || 60));
   }
 
   is_on_screen() {
@@ -66,6 +85,32 @@ class Hook {
     return await new Promise(resolve => (this.finish_reel_in = resolve));
   }
 
+  async go_invisible() {
+    if (this.hooked_fish) {
+      this.updates_till_invis = floor(2 * frameRate());
+    } else {
+      await this.fade('out');
+      this.invisible = true;
+      setTimeout(
+        () => this.make_visible(),
+        this.invis_dur * 1000 - 2 * Hook.FADE_TIME * 1000
+      );
+      const forced = await new Promise(
+        resolve => (this.make_visible = resolve)
+      );
+      this.invisible = false;
+      if (!forced) await this.fade('in');
+      this.updates_till_invis = floor(random(5, 20) * frameRate());
+    }
+  }
+
+  async fade(mode) {
+    this.fade_mode = mode;
+    this.fade_progress = mode === 'in' ? 0 : 1;
+    await new Promise(resolve => (this.fade_completed = resolve));
+    this.fade_mode = null;
+  }
+
   async reload_bait(wait = true) {
     if (wait) {
       this.reload_status = 'waiting';
@@ -88,6 +133,18 @@ class Hook {
   }
 
   update() {
+    if (--this.updates_till_invis === 0) this.go_invisible();
+
+    if (this.fade_mode) {
+      this.fade_progress +=
+        (1 / (frameRate() || 60) / Hook.FADE_TIME) *
+        (this.fade_mode === 'in' ? 1 : -1);
+      if (this.fade_progress < 0 || this.fade_progress > 1) {
+        this.fade_progress = round(this.fade_progress);
+        this.fade_completed();
+      }
+    }
+
     if (this.hooked_fish) {
       const fish_pos = [
         this.pos[0],
@@ -142,6 +199,9 @@ class Hook {
   }
 
   show() {
+    if (this.invisible) return this.hitbox.show();
+
+    if (this.fade_mode) tint(255, this.fade_progress * 255);
     imageMode(CORNER);
     image(
       this.image,
@@ -149,15 +209,17 @@ class Hook {
       this.pos[1] - this.size[1] / 2,
       ...this.size
     );
+    noTint();
 
     strokeWeight(3);
-    stroke(100);
+    stroke(100, this.fade_mode ? this.fade_progress * 255 : 255);
     line(this.pos[0], -5, this.pos[0], this.pos[1] - this.size[1] / 2.5);
 
     if (this.hooked_fish) {
       this.fish_sprite.show();
     } else if (this.has_worm) {
       push();
+      if (this.fade_mode) tint(255, this.fade_progress * 255);
       translate(
         this.pos[0] - this.worm_size[0] / 2 + 10,
         this.pos[1] - this.worm_size[1] / 6

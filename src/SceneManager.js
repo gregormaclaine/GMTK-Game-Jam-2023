@@ -5,7 +5,7 @@ class SceneManager {
     this.images = images;
     this.audio = audio;
 
-    this.state = 'game';
+    this.state = 'menu';
     this.score = 0;
     this.current_game_day = -1;
     this.current_difficulty = -1;
@@ -20,12 +20,21 @@ class SceneManager {
       this.dialogue,
       this.exit_end_screen.bind(this)
     );
-    this.shop_scene = new ShopScreen(images, this.exit_menu.bind(this));
-    this.initialise_new_game_day();
+    this.shop_scene = new ShopScreen(
+      images,
+      this.dialogue,
+      this.exit_menu.bind(this)
+    );
 
     this.fade_mode = null;
     this.fade_progress = 0;
     this.fade_completed = () => {};
+  }
+
+  start_game() {
+    this.state = 'game';
+    this.initialise_new_game_day();
+    this.dialogue.send(DIALOGUE.BEFORE_GAME);
   }
 
   initialise_new_game_day() {
@@ -56,6 +65,11 @@ class SceneManager {
       this.fish_left--;
       this.current_difficulty--;
     }
+
+    if (this.current_game_day === 0) {
+      await this.dialogue.send(DIALOGUE.AFTER_GAME);
+    }
+
     await this.fade('out');
     if (this.current_game_day < 4 && this.fish_left > 0) {
       this.state = 'shop';
@@ -69,6 +83,10 @@ class SceneManager {
       });
     }
     await this.fade('in');
+
+    if (this.current_game_day === 0) {
+      await this.dialogue.send(DIALOGUE.BEFORE_SHOP);
+    }
   }
 
   async exit_menu() {
@@ -95,6 +113,7 @@ class SceneManager {
       case 'shop':
         return this.shop_scene.handle_click();
       case 'menu':
+        this.start_game();
         return this.menu_scene.handle_click();
       case 'end':
         return this.end_scene.handle_click();

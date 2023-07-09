@@ -23,8 +23,10 @@ class DialogueManager {
     return true;
   }
 
-  async send(dialogues) {
+  async send(dialogues, wait = 0.5) {
+    if (!dialogues.length) return;
     this.active = true;
+    await timeout(wait * 1000);
     for (const dialogue of dialogues) {
       this.current_dialogue = dialogue;
       this.progress = 0;
@@ -46,11 +48,11 @@ class DialogueManager {
   }
 
   show() {
-    imageMode(CENTER);
-    image(this.images['dialogue-profile'], ...DialogueManager.PROFILE_RECT);
-    image(this.images['dialogue-box'], ...DialogueManager.DIALOGUE_RECT);
+    if (this.current_dialogue) {
+      imageMode(CENTER);
+      image(this.images['dialogue-profile'], ...DialogueManager.PROFILE_RECT);
+      image(this.images['dialogue-box'], ...DialogueManager.DIALOGUE_RECT);
 
-    if (this.active) {
       if (this.current_dialogue.profile) {
         image(
           this.images[this.current_dialogue.profile],
@@ -70,8 +72,10 @@ class DialogueManager {
   }
 
   update() {
-    this.progress +=
-      ((1 / frameRate()) * DialogueManager.TEXT_SPEED) /
-      this.current_dialogue.text.length;
+    if (this.current_dialogue) {
+      this.progress +=
+        ((1 / frameRate()) * DialogueManager.TEXT_SPEED) /
+        this.current_dialogue.text.length;
+    }
   }
 }

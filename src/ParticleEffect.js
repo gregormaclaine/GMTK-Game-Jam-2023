@@ -6,7 +6,7 @@ class ParticleEffect {
     this.distance = distance;
     this.duration = duration;
 
-    this.pos = [0, 0];
+    this.pos = [-100, -100];
 
     this.showing = false;
     this.progress = 0;

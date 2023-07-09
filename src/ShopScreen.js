@@ -1,6 +1,7 @@
 class ShopScreen {
-  constructor(images, start_next_day) {
+  constructor(images, dialogue, start_next_day) {
     this.images = images;
+    this.dialogue = dialogue;
     this.start_next_day = start_next_day;
 
     this.unlocked_upgrades = {
@@ -36,6 +37,8 @@ class ShopScreen {
     this.current_score = 0;
 
     this.continue_rect = [700, 34, 150, 50];
+
+    this.tried_shop_before = false;
   }
 
   mouse_over_continue() {
@@ -71,10 +74,15 @@ class ShopScreen {
     this.available_upgrades--;
   }
 
-  handle_click() {
+  async handle_click() {
     this.shop_items.forEach(i => i.handle_click());
-    if (this.available_upgrades === 0 && this.mouse_over_continue())
+    if (this.available_upgrades === 0 && this.mouse_over_continue()) {
+      if (!this.tried_shop_before) {
+        await this.dialogue.send(DIALOGUE.BEFORE_FIRST_LEAVE_SHOP);
+        this.tried_shop_before = true;
+      }
       this.close();
+    }
   }
 
   open(fish_lost, current_score) {

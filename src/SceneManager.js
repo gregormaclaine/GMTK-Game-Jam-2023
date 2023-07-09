@@ -13,7 +13,11 @@ class SceneManager {
 
     this.dialogue = new DialogueManager(images);
 
-    this.menu_scene = new MenuScreen(images, this.dialogue);
+    this.menu_scene = new MenuScreen(
+      images,
+      this.dialogue,
+      this.start_game.bind(this)
+    );
     this.end_scene = new EndScreen(
       images,
       this.audio,
@@ -31,11 +35,6 @@ class SceneManager {
     this.fade_completed = () => {};
 
     this.introduced_invisibility = false;
-
-    this.current_game_day = 2;
-    this.current_difficulty = 2;
-    this.state = 'game';
-    this.initialise_new_game_day();
   }
 
   async start_game() {
@@ -126,7 +125,6 @@ class SceneManager {
       case 'shop':
         return this.shop_scene.handle_click();
       case 'menu':
-        this.start_game();
         return this.menu_scene.handle_click();
       case 'end':
         return this.end_scene.handle_click();

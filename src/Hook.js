@@ -53,7 +53,8 @@ class Hook {
 
     this.reload_status = null;
 
-    this.updates_till_invis = floor(random(2, 6) * (frameRate() || 60));
+    this.updates_till_invis =
+      invis_dur > 0 ? floor(random(2, 6) * (frameRate() || 60)) : -1;
   }
 
   is_on_screen() {

@@ -53,7 +53,9 @@ class EndScreen {
     } else {
       this.win_gifs.forEach(g => g.fade_out());
     }
-    this.go_to_menu();
+
+    window.location.reload();
+    // this.go_to_menu();
   }
 
   show() {

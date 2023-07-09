@@ -28,5 +28,5 @@ const credits = `
     The sound effect is permitted for non-commercial use under license
     “Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)”
 
-    Thank you to Sofiya & Martina <3
+    Thank you to Sofiya & Martina for your support <3
 `.split('\n');

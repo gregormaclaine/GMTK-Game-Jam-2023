@@ -26,6 +26,7 @@ class SceneManager {
     );
     this.shop_scene = new ShopScreen(
       images,
+      audio,
       this.dialogue,
       this.exit_menu.bind(this)
     );

@@ -1,7 +1,7 @@
 const images = {};
 const audio = new JL.Audio(
   ['laugh.mp3', 'game.mp3', 'shop.mp3'],
-  ['cheer.wav', 'boom.wav', 'star.wav', 'angel.wav']
+  ['cheer.wav', 'boom.wav', 'star.wav', 'angel.wav', 'buy.wav']
 );
 let scenes;
 

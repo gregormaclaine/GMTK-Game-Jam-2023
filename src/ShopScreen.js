@@ -1,6 +1,7 @@
 class ShopScreen {
-  constructor(images, dialogue, start_next_day) {
+  constructor(images, audio, dialogue, start_next_day) {
     this.images = images;
+    this.audio = audio;
     this.dialogue = dialogue;
     this.start_next_day = start_next_day;
 
@@ -33,7 +34,7 @@ class ShopScreen {
 
     this.open_item = null;
 
-    this.available_upgrades = 0;
+    this.available_upgrades = 1;
     this.current_score = 0;
 
     this.continue_rect = [700, 34, 150, 50];
@@ -72,6 +73,7 @@ class ShopScreen {
     if (this.available_upgrades <= 0) return;
     this.unlocked_upgrades[ability] = true;
     this.available_upgrades--;
+    this.audio.play_sound('buy.wav');
   }
 
   async handle_click() {

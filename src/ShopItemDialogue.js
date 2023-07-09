@@ -32,13 +32,13 @@ class ShopItemDialogue {
     ];
   }
 
-  buy_button_pos() {
+  buy_button_pos(y_offset = 0) {
     const pos = this.pos();
     return [
       this.side === 'right'
         ? pos[0] + this.size[0] * (7 / 20)
         : pos[0] - this.size[0] * (7 / 20),
-      pos[1]
+      pos[1] + y_offset
     ];
   }
 
@@ -118,8 +118,7 @@ class ShopItemDialogue {
       textAlign(CENTER, CENTER);
       textSize(15);
       fill(0, this.can_buy() ? 255 : 100);
-      text('BUY', ...this.buy_button_pos());
-
+      text('BUY', ...this.buy_button_pos(-2));
       if (b_hovering) cursor('pointer');
     }
   }

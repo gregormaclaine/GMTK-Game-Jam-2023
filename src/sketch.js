@@ -1,5 +1,5 @@
 const images = {};
-const audio = new JL.Audio(['laugh.mp3'], ['cheer.wav']);
+const audio = new JL.Audio(['laugh.mp3'], ['cheer.wav', 'boom.wav']);
 let scenes;
 
 function preload() {

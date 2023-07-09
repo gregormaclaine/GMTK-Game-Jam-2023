@@ -11,7 +11,7 @@ class SceneManager {
     this.current_difficulty = -1;
     this.fish_left = 3;
 
-    this.dialogue = new DialogueManager(images);
+    this.dialogue = new DialogueManager(images, audio);
 
     this.menu_scene = new MenuScreen(
       images,

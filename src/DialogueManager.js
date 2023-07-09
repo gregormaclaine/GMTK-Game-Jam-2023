@@ -6,8 +6,9 @@ class DialogueManager {
 
   static TEXT_SPEED = 50;
 
-  constructor(images) {
+  constructor(images, audio) {
     this.images = images;
+    this.audio = audio;
 
     this.active = false;
     this.current_dialogue = null;
@@ -30,7 +31,12 @@ class DialogueManager {
     for (const dialogue of dialogues) {
       this.current_dialogue = dialogue;
       this.progress = 0;
-      await new Promise(resolve => (this.finished_dialogue = resolve));
+      if (dialogue.jumpscare) {
+        this.audio.play_sound('boom.wav');
+        await timeout(500);
+      } else {
+        await new Promise(resolve => (this.finished_dialogue = resolve));
+      }
     }
     this.current_dialogue = null;
     this.active = false;
@@ -60,24 +66,39 @@ class DialogueManager {
         );
       }
 
-      rectMode(CENTER);
-      fill(0);
-      strokeWeight(0);
-      textSize(22);
-      textAlign(LEFT, TOP);
-      const t = this.current_dialogue.text;
-      const text_index = floor(lerp(0, t.length, this.progress));
-      text(t.substring(0, text_index), ...DialogueManager.TEXT_RECT);
+      if (this.current_dialogue.text) {
+        rectMode(CENTER);
+        fill(0);
+        strokeWeight(0);
+        textSize(22);
+        textAlign(LEFT, TOP);
+        const t = this.current_dialogue.text;
+        const text_index = floor(lerp(0, t.length, this.progress));
+        text(t.substring(0, text_index), ...DialogueManager.TEXT_RECT);
+      }
+
+      if (this.current_dialogue.jumpscare) {
+        imageMode(CENTER);
+        image(
+          this.images[this.current_dialogue.image],
+          width * 0.5,
+          height * 0.5,
+          width * 0.8,
+          height * 0.8
+        );
+      }
     }
   }
 
   update() {
     if (this.current_dialogue) {
+      if (this.current_dialogue.jumpscare) return;
+
       this.progress +=
         ((1 / frameRate()) * DialogueManager.TEXT_SPEED) /
         this.current_dialogue.text.length;
-    }
 
-    if (this.contains_mouse()) cursor('pointer');
+      if (this.contains_mouse()) cursor('pointer');
+    }
   }
 }

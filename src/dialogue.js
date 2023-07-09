@@ -6,8 +6,8 @@ const DIALOGUE = {
       text: 'Here I am to explain some of the game mechanics...'
     },
     {
-      profile: 'fish',
-      text: 'You make this sort of JSON type stuff just like last time with different texts for different people.'
+      jumpscare: true,
+      image: 'fish'
     },
     {
       profile: 'crown-fish',

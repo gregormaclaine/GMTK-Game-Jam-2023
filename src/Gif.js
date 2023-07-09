@@ -3,16 +3,17 @@ const all_gifs = [];
 class Gif {
   static FADE_TIME = 0.8;
 
-  constructor({ path, alt, duration, width, audio }) {
+  constructor({ path, alt, duration, width, height, audio }) {
     this.path = path;
     this.duration = duration;
     this.width = width;
+    this.height = height || width;
     this.audio = audio;
 
     this.image = createImg(this.path, alt);
     this.image.hide();
     this.image.style('width', `${this.width}px`);
-    this.image.style('height', 'auto');
+    this.image.style('height', `${this.height}px`);
     this.image.class('prevent-select');
 
     this.showing = false;
@@ -31,8 +32,7 @@ class Gif {
 
   get_corner_pos(pos) {
     const [midx, midy] = pos;
-    const gif_height = (this.width / this.image.width) * this.image.height;
-    return [midx - this.width / 2, midy - gif_height / 2];
+    return [midx - this.width / 2, midy - this.height / 2];
   }
 
   async play(pos, sound) {

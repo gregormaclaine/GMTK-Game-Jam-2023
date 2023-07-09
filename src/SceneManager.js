@@ -16,6 +16,7 @@ class SceneManager {
     this.menu_scene = new MenuScreen(images, this.dialogue);
     this.end_scene = new EndScreen(
       images,
+      this.audio,
       this.dialogue,
       this.exit_end_screen.bind(this)
     );
@@ -61,7 +62,11 @@ class SceneManager {
       this.shop_scene.open(fish_lost, this.score);
     } else {
       this.state = 'end';
-      this.end_scene.open({ result: this.fish_left > 0 ? 'win' : 'lose' });
+      this.end_scene.open({
+        result: this.fish_left > 0 ? 'win' : 'lose',
+        fish_left: this.fish_left,
+        final_score: this.score
+      });
     }
     await this.fade('in');
   }

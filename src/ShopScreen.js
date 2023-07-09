@@ -96,7 +96,7 @@ class ShopScreen {
     fill(255);
     strokeWeight(0);
     textSize(28);
-    text('Score: ' + this.current_score, 20, 20);
+    text('Score: ' + this.current_score.toLocaleString(), 20, 20);
 
     textSize(16);
     const msg = this.available_upgrades

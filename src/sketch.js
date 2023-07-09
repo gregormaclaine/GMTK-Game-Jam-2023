@@ -1,5 +1,5 @@
 const images = {};
-const audio = new JL.Audio([], []);
+const audio = new JL.Audio(['laugh.mp3'], ['cheer.wav']);
 let scenes;
 
 function preload() {
@@ -11,6 +11,11 @@ function preload() {
   images['underwater_bg'] = loadImage('assets/img/underwater_bg.jpg');
   images['dialogue-profile'] = loadImage('assets/img/dialogue-profile.png');
   images['dialogue-box'] = loadImage('assets/img/dialogue-box.png');
+
+  // End Stars
+  images['1-stars'] = loadImage('assets/img/end/1-stars.png');
+  images['2-stars'] = loadImage('assets/img/end/2-stars.png');
+  images['3-stars'] = loadImage('assets/img/end/3-stars.png');
 
   // Fish
   images['fish'] = loadImage('assets/img/fish/main.png');
@@ -44,7 +49,8 @@ function preload() {
     path: 'assets/img/spinning-fish.gif',
     duration: 1000,
     alt: 'feesh',
-    width: 400
+    width: 400,
+    height: 173
   });
 
   images['laugh-gifs'] = [
@@ -61,6 +67,19 @@ function preload() {
     new Gif({
       path: 'assets/img/end/laugh-3.gif',
       alt: 'HAHAHAHAHAHAHAHA',
+      width: 200
+    })
+  ];
+
+  images['squirrels'] = [
+    new Gif({
+      path: 'assets/img/end/dancing-squirrel.gif',
+      alt: 'OOOOOH RIIIIIIIIGHTT',
+      width: 200
+    }),
+    new Gif({
+      path: 'assets/img/end/dancing-squirrel.gif',
+      alt: 'OOOOOH RIIIIIIIIGHTT',
       width: 200
     })
   ];

@@ -24,10 +24,10 @@ class Fisherman {
     translate(0, random(-vigor, vigor));
   }
 
-  show() {
+  show(can_move = true) {
     push();
     imageMode(CENTER);
-    this.offset_for_speech(this.rect);
+    if (can_move) this.offset_for_speech(this.rect);
     image(this.image, ...this.rect);
     pop();
   }

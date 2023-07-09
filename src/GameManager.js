@@ -251,7 +251,7 @@ class GameManager {
 
     image(this.images['pause-tooltip'], 75, 575, 100, 25);
 
-    this.fisherman.show();
+    this.fisherman.show(this.state !== 'pause');
 
     this.npc_fish.filter(f => f.in_background).forEach(f => f.show());
     this.hook.show();

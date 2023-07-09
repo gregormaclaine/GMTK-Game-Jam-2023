@@ -1,7 +1,8 @@
 class FishWarner {
-  constructor(npc_fish, cooldown) {
+  constructor(npc_fish, cooldown, color) {
     this.npc_fish = npc_fish;
     this.cooldown = cooldown; // Seconds
+    this.color = color;
 
     this.pos = [width - 60 - 20, height - 10 - 20];
     this.size = [60, 10];
@@ -33,7 +34,7 @@ class FishWarner {
     fill(200);
     rect(...this.pos, ...this.size);
 
-    fill('green');
+    fill(this.color);
     const w = lerp(0, this.size[0], this.cooldown_progress);
     rect(...this.pos, w, this.size[1]);
   }

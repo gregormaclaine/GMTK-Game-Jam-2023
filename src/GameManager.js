@@ -20,25 +20,29 @@ class GameManager {
     this.state = 'game';
 
     this.timer = new GameTimer(day, this.end_day.bind(this));
+
     this.qte = new QuickTimeEvent(
       1.4 - (has_ab('reaction-1') ? day - 1 : day) * 0.15,
       PI / 8,
       has_ab('reaction-2') ? 3 / 5 : 1 / 3
     );
+
     this.npc_fish = [
       new NPCFish({
         pos: [200, 500],
         images,
         speed: day > 0 ? 2 : 1,
         see_distance: has_ab('vision-1') ? 160 : 80,
-        smell_distance: has_ab('vision-2') ? 80 : 160
+        smell_distance: has_ab('vision-2') ? 80 : 160,
+        fish: has_ab('vision-1') ? 'eyes-fish' : 'fish'
       }),
       new NPCFish({
         pos: [600, 500],
         images,
         speed: day > 0 ? 2 : 1,
         see_distance: has_ab('vision-1') ? 160 : 80,
-        smell_distance: has_ab('vision-2') ? 80 : 160
+        smell_distance: has_ab('vision-2') ? 80 : 160,
+        fish: has_ab('vision-1') ? 'eyes-fish' : 'fish'
       })
     ].slice(0, fish_left - 1);
 
@@ -56,29 +60,54 @@ class GameManager {
 
     this.fish_warner = new FishWarner(
       this.npc_fish,
-      has_ab('cooldown-1') ? 4 : 6
+      has_ab('cooldown-1') ? 4 : 6,
+      has_ab('cooldown-1') ? 'orange' : 'green'
     );
-    this.player = new PlayerFish(
-      [400, 300],
+
+    this.player = new PlayerFish({
+      start_pos: [400, 300],
       images,
-      has_ab('agility-1') ? 9 : 6,
-      has_ab('agility-1') ? 0.6 : 0.3,
-      has_ab('agility-2') ? 0.1 : 0.02
-    );
+      max_vel: has_ab('agility-1') ? 9 : 6,
+      acceleration: has_ab('agility-1') ? 0.6 : 0.3,
+      damping: has_ab('agility-2') ? 0.1 : 0.02,
+      fish: this.get_player_fish()
+    });
+
     this.hook = new Hook({
       pos: [100, 100],
       images,
       speed: day > 0 ? 3 : 1.5
     });
+
     this.score = new PlayerScore(images['star']);
     this.pause_modal = new PauseModal(this.score);
-
     this.star_effect = new StarParticleEffect(images['star']);
 
     // Flag for if hook failed to catch fish and then cant for a while
     this.hook_on_cooldown = false;
 
     this.timer.begin();
+  }
+
+  get_player_fish() {
+    const combo =
+      '0' +
+      (this.has_ab('agility-1') ? '1' : '0') +
+      (this.has_ab('reaction-1') ? '1' : '0') +
+      (this.has_ab('luck-1') ? '1' : '0');
+
+    return (
+      {
+        '0000': 'fish',
+        '0001': 'crown-fish',
+        '0010': 'brain-fish',
+        '0011': 'brain-crown-fish',
+        '0100': 'rocket-fish',
+        '0101': 'rocket-crown-fish',
+        '0110': 'rocket-brain-fish',
+        '0111': 'rocket-brain-crown-fish'
+      }[combo] || 'fish'
+    );
   }
 
   check_for_catches() {

@@ -85,6 +85,7 @@ class SceneManager {
     await this.fade('out');
     if (this.current_game_day < 4 && this.fish_left > 0) {
       this.state = 'shop';
+      this.audio.play_track('shop.mp3');
       this.shop_scene.open(fish_lost, this.score);
     } else {
       this.state = 'end';

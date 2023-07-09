@@ -18,6 +18,10 @@ function preload() {
   images['dialogue-profile'] = loadImage('assets/img/dialogue-profile.png');
   images['dialogue-box'] = loadImage('assets/img/dialogue-box.png');
   images['pause-tooltip'] = loadImage('assets/img/pause_tooltip.png');
+  images['pufferfish1'] = loadImage('assets/img/pufferfish_1.jpg');
+  images['pufferfish2'] = loadImage('assets/img/pufferfish_2.jpg');
+  images['fredd'] = loadImage('assets/img/fredd.png');
+  
 
   images['underwater_bg'] = loadImage('assets/img/underwater_bg.jpg');
   images['game-background'] = loadImage('assets/img/game-background.png');

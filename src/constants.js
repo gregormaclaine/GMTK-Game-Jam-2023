@@ -3,6 +3,11 @@ const INVISIBLE_CEILING = 188;
 const SHOW_HITBOXES = false;
 
 const credits = `
+    Shop Theme:
+    "Townie Loop" Kevin MacLeod (incompetech.com)
+    Licensed under Creative Commons: By Attribution 4.0 License
+    http://creativecommons.org/licenses/by/4.0/
+
     fish PNG Designed By 1081**** from
     https://pngtree.com/freepng/fish-sea-fish-fish_8243296.html?sol=downref&id=bef
 

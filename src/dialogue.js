@@ -43,7 +43,7 @@ const DIALOGUE = {
     },
     {
       profile: 'pufferfish1',
-      text: "The danger levels are too damn high, the living conditions are horrible, its honestly impossible to tolerate this kind of life anymore, every day I wake up in fear of who might come and what their intensions may be towards us, I cannot tolera"
+      text: "The danger levels are too damn high, the living conditions are horrible, its honestly impossible to tolerate this kind of life anymore, every day I wake up in fear of who might come and what they might do"
     },
     {
       profile: 'pufferfish2',
@@ -51,7 +51,7 @@ const DIALOGUE = {
     },
     {
       profile: 'pufferfish1',
-      text: "cannot tolerate it anymore. I want to run but I cannot leave our shop, little Pooter has it rough, I need to keep the business running or else we'll starve. The fish economy is in shambles, everything is going to shi"
+      text: "cannot tolerate it anymore. I want to run but I cannot leave our shop, little Pooter has it rough, I need to keep the business running or else we'll starve. The fish economy is in shambles"
     },
     {
       profile: 'pufferfish2',

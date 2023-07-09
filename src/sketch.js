@@ -3,6 +3,11 @@ const audio = new JL.Audio(['laugh.mp3'], ['cheer.wav']);
 let scenes;
 
 function preload() {
+  // Load fonts
+  fontLight = loadFont('assets/font/Oxygen-Light.ttf');
+  fontRegular = loadFont('assets/font/Oxygen-Regular.ttf');
+  fontBold = loadFont('assets/font/Oxygen-Bold.ttf');
+
   images['hook'] = loadImage('assets/img/fish-hook.png');
   images['star'] = loadImage('assets/img/star.png');
   images['worm'] = loadImage('assets/img/worm.png');
@@ -11,6 +16,12 @@ function preload() {
   images['underwater_bg'] = loadImage('assets/img/underwater_bg.jpg');
   images['dialogue-profile'] = loadImage('assets/img/dialogue-profile.png');
   images['dialogue-box'] = loadImage('assets/img/dialogue-box.png');
+  images['pause-tooltip'] = loadImage('assets/img/pause_tooltip.png');
+  
+  // Main Menu
+  images['menu_bg'] = loadImage('assets/img/main_menu/menu_bg.jpg');
+  images['start-button'] = loadImage('assets/img/main_menu/start_button.png');
+  images['credits-button'] = loadImage('assets/img/main_menu/credits_button.png');
 
   // End Stars
   images['1-stars'] = loadImage('assets/img/end/1-stars.png');
@@ -89,6 +100,7 @@ function preload() {
 
 function setup() {
   const cnv = createCanvas(800, 600);
+  textFont(fontRegular);
   Gif.set_canvas(cnv);
   scenes = new SceneManager(images, audio);
 }

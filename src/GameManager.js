@@ -82,6 +82,7 @@ class GameManager {
     this.hook = new Hook({
       pos: [500, 100],
       images,
+      audio,
       speed: difficulty > 0 ? 3 : 1.5,
       fail_chance: has_ab('luck-3') ? 0.5 : 0,
       wings_effect: this.wings_effect,

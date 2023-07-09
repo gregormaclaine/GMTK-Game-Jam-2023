@@ -22,5 +22,11 @@ const credits = `
     Sunshine Clipart #6729
     https://clipartix.com/sunshine-clipart-image-6729/
 
+    Angelic Choir Ahh
+    Artist: Alexander
+    https://orangefreesounds.com/angelic-choir-ahh/
+    The sound effect is permitted for non-commercial use under license
+    “Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)”
+
     Thank you to Sofiya & Martina <3
 `.split('\n');

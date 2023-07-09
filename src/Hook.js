@@ -5,6 +5,7 @@ class Hook {
   constructor({
     pos,
     images,
+    audio,
     speed,
     fail_chance,
     wings_effect,
@@ -13,6 +14,7 @@ class Hook {
   }) {
     this.pos = pos;
     this.images = images;
+    this.audio = audio;
     this.wings_effect = wings_effect;
     this.is_ended = is_ended;
 
@@ -166,6 +168,7 @@ class Hook {
           this.finish_reel_in(true);
           this.reload_bait(false);
           this.wings_effect.trigger(this.pos);
+          this.audio.play_sound('angel.wav');
         }
         this.tried_to_fail = true;
       }

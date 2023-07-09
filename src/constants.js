@@ -3,6 +3,11 @@ const INVISIBLE_CEILING = 188;
 const SHOW_HITBOXES = false;
 
 const credits = `
+    Game Theme:
+    "Moonlight Beach" Kevin MacLeod (incompetech.com)
+    Licensed under Creative Commons: By Attribution 4.0 License
+    http://creativecommons.org/licenses/by/4.0/
+
     Shop Theme:
     "Townie Loop" Kevin MacLeod (incompetech.com)
     Licensed under Creative Commons: By Attribution 4.0 License

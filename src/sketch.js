@@ -1,5 +1,8 @@
 const images = {};
-const audio = new JL.Audio(['laugh.mp3'], ['cheer.wav', 'boom.wav']);
+const audio = new JL.Audio(
+  ['laugh.mp3', 'game.mp3', 'shop.mp3'],
+  ['cheer.wav', 'boom.wav']
+);
 let scenes;
 
 function preload() {
@@ -21,7 +24,6 @@ function preload() {
   images['pufferfish1'] = loadImage('assets/img/pufferfish_1.jpg');
   images['pufferfish2'] = loadImage('assets/img/pufferfish_2.jpg');
   images['fredd'] = loadImage('assets/img/fredd.png');
-  
 
   images['underwater_bg'] = loadImage('assets/img/underwater_bg.jpg');
   images['game-background'] = loadImage('assets/img/game-background.png');

@@ -38,8 +38,11 @@ class SceneManager {
   }
 
   async start_game() {
-    this.state = 'game';
+    await this.fade('out');
     await this.initialise_new_game_day();
+    this.state = 'game';
+    this.audio.play_track('game.mp3');
+    await this.fade('in');
     await this.dialogue.send(DIALOGUE.BEFORE_GAME);
   }
 
@@ -103,9 +106,10 @@ class SceneManager {
   }
 
   async exit_menu() {
-    this.initialise_new_game_day();
     await this.fade('out');
     this.state = 'game';
+    this.initialise_new_game_day();
+    this.audio.play_track('game.mp3');
     await this.fade('in');
   }
 

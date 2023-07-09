@@ -5,11 +5,11 @@ class SceneManager {
     this.images = images;
     this.audio = audio;
 
-    this.state = 'game';
+    this.state = 'menu';
     this.current_game_day = -1;
     this.fish_left = 3;
 
-    this.dialogue = new DialogueManager();
+    this.dialogue = new DialogueManager(images);
 
     this.menu_scene = new MenuScreen(images, this.dialogue);
     this.end_scene = new EndScreen(

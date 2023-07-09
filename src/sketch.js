@@ -9,6 +9,8 @@ function preload() {
   images['tick'] = loadImage('assets/img/tick.png');
   images['wings'] = loadImage('assets/img/wings.png');
   images['underwater_bg'] = loadImage('assets/img/underwater_bg.jpg');
+  images['dialogue-profile'] = loadImage('assets/img/dialogue-profile.png');
+  images['dialogue-box'] = loadImage('assets/img/dialogue-box.png');
 
   // Fish
   images['fish'] = loadImage('assets/img/fish/main.png');

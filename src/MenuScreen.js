@@ -7,6 +7,7 @@ class MenuScreen {
   handle_click() {
     this.dialogue.send([
       {
+        profile: 'fish',
         text: 'Here is some very interesting text that you should read because it is very important'
       }
     ]);

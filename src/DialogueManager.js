@@ -1,11 +1,14 @@
 class DialogueManager {
   static PROFILE_RECT = [125, 475, 150, 150];
+  static INNER_PROFILE_RECT = [125, 475, 125, 125];
   static DIALOGUE_RECT = [750 - 525 / 2, 475, 525, 150];
   static TEXT_RECT = [750 - 525 / 2, 475, 500, 125];
 
   static TEXT_SPEED = 50;
 
-  constructor() {
+  constructor(images) {
+    this.images = images;
+
     this.active = false;
     this.current_dialogue = null;
     this.progress = 0;
@@ -43,18 +46,21 @@ class DialogueManager {
   }
 
   show() {
-    // Draw Rects
-    strokeWeight(0);
-    rectMode(CENTER);
-    fill('orange');
-    rect(...DialogueManager.DIALOGUE_RECT);
-    fill('blue');
-    rect(...DialogueManager.PROFILE_RECT);
-    fill('red');
-    rect(...DialogueManager.TEXT_RECT);
+    imageMode(CENTER);
+    image(this.images['dialogue-profile'], ...DialogueManager.PROFILE_RECT);
+    image(this.images['dialogue-box'], ...DialogueManager.DIALOGUE_RECT);
 
     if (this.active) {
-      fill(255);
+      if (this.current_dialogue.profile) {
+        image(
+          this.images[this.current_dialogue.profile],
+          ...DialogueManager.INNER_PROFILE_RECT
+        );
+      }
+
+      rectMode(CENTER);
+      fill(0);
+      strokeWeight(0);
       textSize(22);
       textAlign(LEFT, TOP);
       const t = this.current_dialogue.text;

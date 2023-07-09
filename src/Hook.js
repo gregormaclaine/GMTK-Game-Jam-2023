@@ -32,6 +32,7 @@ class Hook {
     // Flag for when the hook has successfully caught a fish
     this.hooked_fish = false;
     this.finish_reel_in = () => {};
+    this.finish_reload = () => {};
 
     this.reload_status = null;
   }
@@ -71,10 +72,10 @@ class Hook {
       await timeout(random(3000, 5000));
     }
     this.reload_status = 'up';
-    await new Promise(resolve => (this.finish_reel_in = resolve));
+    await new Promise(resolve => (this.finish_reload = resolve));
     this.has_worm = true;
     this.reload_status = 'down';
-    await new Promise(resolve => (this.finish_reel_in = resolve));
+    await new Promise(resolve => (this.finish_reload = resolve));
     this.reload_status = null;
   }
 
@@ -109,16 +110,21 @@ class Hook {
           this.wings_effect.trigger(this.pos);
         }
         this.tried_to_fail = true;
-        return;
       }
 
-      if (this.pos[1] < -this.size[1]) this.finish_reel_in();
+      if (this.pos[1] < -this.size[1]) {
+        if (this.hooked_fish) {
+          this.finish_reel_in();
+        } else {
+          this.finish_reload();
+        }
+      }
       return;
     }
 
     if (this.reload_status === 'down') {
       this.pos[1] += this.get_hook_reel_speed();
-      if (this.pos[1] > INVISIBLE_CEILING + this.size[1]) this.finish_reel_in();
+      if (this.pos[1] > INVISIBLE_CEILING + this.size[1]) this.finish_reload();
       return;
     }
 

@@ -5,6 +5,7 @@ class GameManager {
     images,
     end_game,
     day = 0,
+    difficulty = 0,
     upgrades,
     fish_left = 3,
     dialogue,
@@ -13,6 +14,7 @@ class GameManager {
     this.images = images;
     this.end_game = end_game;
     this.day = day;
+    this.difficulty = difficulty;
     this.upgrades = upgrades;
     this.dialogue = dialogue;
     this.has_ab = has_ab;
@@ -22,7 +24,7 @@ class GameManager {
     this.timer = new GameTimer(day, this.end_day.bind(this));
 
     this.qte = new QuickTimeEvent(
-      1.4 - (has_ab('reaction-1') ? day - 1 : day) * 0.15,
+      1.4 - (has_ab('reaction-1') ? difficulty - 1 : difficulty) * 0.15,
       PI / 8,
       has_ab('reaction-2') ? 3 / 5 : 1 / 3
     );
@@ -31,7 +33,7 @@ class GameManager {
       new NPCFish({
         pos: [200, 500],
         images,
-        speed: day > 0 ? 2 : 1,
+        speed: difficulty > 0 ? 2 : 1,
         see_distance: has_ab('vision-1') ? 160 : 80,
         smell_distance: has_ab('vision-2') ? 80 : 160,
         fish: has_ab('vision-1') ? 'eyes-fish' : 'fish'
@@ -39,7 +41,7 @@ class GameManager {
       new NPCFish({
         pos: [600, 500],
         images,
-        speed: day > 0 ? 2 : 1,
+        speed: difficulty > 0 ? 2 : 1,
         see_distance: has_ab('vision-1') ? 160 : 80,
         smell_distance: has_ab('vision-2') ? 80 : 160,
         fish: has_ab('vision-1') ? 'eyes-fish' : 'fish'
@@ -79,7 +81,7 @@ class GameManager {
     this.hook = new Hook({
       pos: [100, 100],
       images,
-      speed: day > 0 ? 3 : 1.5,
+      speed: difficulty > 0 ? 3 : 1.5,
       fail_chance: has_ab('luck-3') ? 0.5 : 0,
       wings_effect: this.wings_effect
     });

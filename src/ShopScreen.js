@@ -33,6 +33,7 @@ class ShopScreen {
     this.open_item = null;
 
     this.available_upgrades = 0;
+    this.current_score = 0;
 
     this.continue_rect = [700, 34, 150, 50];
   }
@@ -76,8 +77,9 @@ class ShopScreen {
       this.close();
   }
 
-  open(fish_lost) {
+  open(fish_lost, current_score) {
     if (!fish_lost) this.available_upgrades++;
+    this.current_score = current_score;
     this.images['spinning-fish'].fade_in([width * 0.5, height * 0.5]);
   }
 
@@ -94,10 +96,13 @@ class ShopScreen {
     fill(255);
     strokeWeight(0);
     textSize(28);
+    text('Score: ' + this.current_score, 20, 20);
+
+    textSize(16);
     const msg = this.available_upgrades
       ? '1 Upgrade Available'
       : 'No Available Upgrades';
-    text(msg, 20, 20);
+    text(msg, 20, 50);
 
     fill(255, 255, 255, 70);
     strokeWeight(0);

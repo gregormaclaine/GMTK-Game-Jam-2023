@@ -5,8 +5,10 @@ class SceneManager {
     this.images = images;
     this.audio = audio;
 
-    this.state = 'menu';
+    this.state = 'game';
+    this.score = 0;
     this.current_game_day = -1;
+    this.current_difficulty = -1;
     this.fish_left = 3;
 
     this.dialogue = new DialogueManager(images);
@@ -27,10 +29,12 @@ class SceneManager {
 
   initialise_new_game_day() {
     this.current_game_day++;
+    this.current_difficulty++;
     this.game_scene = new GameManager({
       images,
       end_game: this.end_game.bind(this),
       day: this.current_game_day,
+      difficulty: this.current_difficulty,
       upgrades: this.shop_scene.unlocked_upgrades,
       dialogue: this.dialogue,
       fish_left: this.fish_left,
@@ -45,12 +49,16 @@ class SceneManager {
     this.fade_mode = null;
   }
 
-  async end_game({ fish_lost }) {
-    if (fish_lost) this.fish_left--;
+  async end_game({ fish_lost, score }) {
+    this.score += score;
+    if (fish_lost) {
+      this.fish_left--;
+      this.current_difficulty--;
+    }
     await this.fade('out');
     if (this.current_game_day < 4 && this.fish_left > 0) {
       this.state = 'shop';
-      this.shop_scene.open(fish_lost);
+      this.shop_scene.open(fish_lost, this.score);
     } else {
       this.state = 'end';
       this.end_scene.open({ result: this.fish_left > 0 ? 'win' : 'lose' });

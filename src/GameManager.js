@@ -106,7 +106,11 @@ class GameManager {
     this.sky = new Sky(images['sun']);
     this.sky.begin();
 
-    this.fisherman = new Fisherman(images['fisherman'], difficulty);
+    this.fisherman = new Fisherman(
+      images['fisherman'],
+      images['frog'],
+      difficulty
+    );
   }
 
   get_player_fish() {

@@ -77,5 +77,7 @@ class DialogueManager {
         ((1 / frameRate()) * DialogueManager.TEXT_SPEED) /
         this.current_dialogue.text.length;
     }
+
+    if (this.contains_mouse()) cursor('pointer');
   }
 }

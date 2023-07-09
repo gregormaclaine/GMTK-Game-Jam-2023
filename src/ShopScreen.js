@@ -139,6 +139,21 @@ class ShopScreen {
 
     if (this.open_item) {
       this.open_item.dialogue.show();
+    }
+
+    image(this.images['cont-button'], ...this.continue_rect);
+    if (this.available_upgrades !== 0) {
+      fill(0, 100);
+      strokeWeight(0);
+      rectMode(CENTER);
+      rect(...this.continue_rect);
+    }
+  }
+
+  update() {
+    this.images['spinning-fish'].update();
+
+    if (this.open_item) {
       const hovered =
         this.open_item.contains_mouse() ||
         this.open_item.dialogue.contains_mouse();
@@ -156,16 +171,5 @@ class ShopScreen {
 
     if (this.mouse_over_continue() && this.available_upgrades === 0)
       cursor('pointer');
-    image(this.images['cont-button'], ...this.continue_rect);
-    if (this.available_upgrades !== 0) {
-      fill(0, 100);
-      strokeWeight(0);
-      rectMode(CENTER);
-      rect(...this.continue_rect);
-    }
-  }
-
-  update() {
-    this.images['spinning-fish'].update();
   }
 }

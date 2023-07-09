@@ -4,10 +4,12 @@ let scenes;
 
 function preload() {
   images['hook'] = loadImage('assets/img/fish-hook.png');
+  images['sun'] = loadImage('assets/img/sun.png');
   images['star'] = loadImage('assets/img/star.png');
   images['worm'] = loadImage('assets/img/worm.png');
   images['tick'] = loadImage('assets/img/tick.png');
   images['wings'] = loadImage('assets/img/wings.png');
+  images['fisherman'] = loadImage('assets/img/fisherman.png');
   images['underwater_bg'] = loadImage('assets/img/underwater_bg.jpg');
   images['dialogue-profile'] = loadImage('assets/img/dialogue-profile.png');
   images['dialogue-box'] = loadImage('assets/img/dialogue-box.png');

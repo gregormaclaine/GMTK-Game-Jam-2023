@@ -99,6 +99,9 @@ class GameManager {
     this.hook_on_cooldown = false;
 
     this.timer.begin();
+
+    this.sky = new Sky(images['sun']);
+    this.sky.begin();
   }
 
   get_player_fish() {
@@ -235,12 +238,13 @@ class GameManager {
   }
 
   show() {
-    cursor();
     background(15, 94, 156);
 
     stroke(0);
     strokeWeight(1);
     line(0, INVISIBLE_CEILING, width, INVISIBLE_CEILING);
+
+    this.sky.show();
 
     this.npc_fish.filter(f => f.in_background).forEach(f => f.show());
     this.hook.show();
@@ -267,6 +271,7 @@ class GameManager {
         this.fish_warner.update();
         this.star_effect.update();
         this.wings_effect.update();
+        this.sky.update();
 
         if (!this.hook_on_cooldown) this.check_for_catches();
         return;
@@ -278,6 +283,7 @@ class GameManager {
         this.npc_fish.forEach(f => f.update(null));
         this.star_effect.update();
         this.wings_effect.update();
+        this.sky.update();
         return;
 
       case 'quicktime':

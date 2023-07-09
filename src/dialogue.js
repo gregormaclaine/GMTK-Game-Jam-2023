@@ -2,7 +2,7 @@ const DIALOGUE = {
   // Dialogue when leaving the menu going to the first day
   BEFORE_GAME: [
     {
-      profile: 'fish',
+      profile: 'fisherman',
       text: 'Here I am to explain some of the game mechanics...'
     },
     {

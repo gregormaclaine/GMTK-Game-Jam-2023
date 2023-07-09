@@ -56,7 +56,8 @@ class SceneManager {
     }
 
     this.game_scene = new GameManager({
-      images,
+      images: this.images,
+      audio: this.audio,
       end_game: this.end_game.bind(this),
       day: this.current_game_day,
       difficulty: this.current_difficulty,

@@ -3,6 +3,7 @@ class GameManager {
 
   constructor({
     images,
+    audio,
     end_game,
     day = 0,
     difficulty = 0,
@@ -90,6 +91,7 @@ class GameManager {
 
     this.score = new PlayerScore(
       images['star'],
+      audio,
       has_ab('luck-1') ? 0.4 : 0,
       has_ab('luck-2') ? 0.1 : 0
     );

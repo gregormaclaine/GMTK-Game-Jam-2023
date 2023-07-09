@@ -1,7 +1,8 @@
 const handle_float = num => Math.floor(num * 10000) / 10000;
 
 class PlayerScore {
-  constructor(combo_image, double_chance = 0, triple_chance = 0) {
+  constructor(combo_image, audio, double_chance = 0, triple_chance = 0) {
+    this.audio = audio;
     this.double_chance = double_chance;
     this.triple_chance = triple_chance;
 
@@ -21,6 +22,7 @@ class PlayerScore {
 
   increase_combo() {
     this.combo += 0.5;
+    this.audio.play_sound('star.wav');
   }
 
   show() {

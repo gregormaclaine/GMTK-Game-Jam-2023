@@ -34,7 +34,7 @@ class ShopScreen {
 
     this.open_item = null;
 
-    this.available_upgrades = 1;
+    this.available_upgrades = 0;
     this.current_score = 0;
 
     this.continue_rect = [700, 34, 150, 50];

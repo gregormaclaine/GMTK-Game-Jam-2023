@@ -15,11 +15,13 @@ function preload() {
   images['tick'] = loadImage('assets/img/tick.png');
   images['wings'] = loadImage('assets/img/wings.png');
   images['fisherman'] = loadImage('assets/img/fisherman.png');
-  images['underwater_bg'] = loadImage('assets/img/underwater_bg.jpg');
-  images['game-background'] = loadImage('assets/img/game-background.png');
   images['dialogue-profile'] = loadImage('assets/img/dialogue-profile.png');
   images['dialogue-box'] = loadImage('assets/img/dialogue-box.png');
   images['pause-tooltip'] = loadImage('assets/img/pause_tooltip.png');
+
+  images['underwater_bg'] = loadImage('assets/img/underwater_bg.jpg');
+  images['game-background'] = loadImage('assets/img/game-background.png');
+  images['end-background'] = loadImage('assets/img/end/end-background.jpeg');
 
   // Main Menu
   images['menu_bg'] = loadImage('assets/img/main_menu/menu_bg.jpg');

@@ -6,13 +6,22 @@ function preload() {
   images['hook'] = loadImage('assets/img/fish-hook.png');
   images['star'] = loadImage('assets/img/star.png');
   images['worm'] = loadImage('assets/img/worm.png');
+  images['tick'] = loadImage('assets/img/tick.png');
   images['underwater_bg'] = loadImage('assets/img/underwater_bg.jpg');
 
   // Fish
   images['fish'] = loadImage('assets/img/fish/main.png');
-  images['muscle-fish'] = loadImage('assets/img/fish/muscle.png');
   images['crown-fish'] = loadImage('assets/img/fish/crown.png');
-  images['muscle-crown-fish'] = loadImage('assets/img/fish/muscle-crown.png');
+  images['brain-fish'] = loadImage('assets/img/fish/brain.png');
+  images['brain-crown-fish'] = loadImage('assets/img/fish/brain-crown.png');
+  images['rocket-fish'] = loadImage('assets/img/fish/rocket.png');
+  images['rocket-crown-fish'] = loadImage('assets/img/fish/rocket-crown.png');
+  images['rocket-brain-fish'] = loadImage('assets/img/fish/rocket-brain.png');
+  images['rocket-brain-crown-fish'] = loadImage(
+    'assets/img/fish/rocket-brain-crown.png'
+  );
+  // images['muscle-crown-fish'] = loadImage('assets/img/fish/muscle-crown.png');
+  images['eyes-fish'] = loadImage('assets/img/fish/eyes.png');
 
   // Shop Item Icons
   images['agility-1'] = loadImage('assets/img/shop_icons/agility_1.png');

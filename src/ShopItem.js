@@ -2,9 +2,8 @@ class ShopItem {
   // pos is x and y co-ords of the item
   constructor({ pos, ability, shop, name, desc, side }) {
     this.pos = pos;
+    this.shop = shop;
     this.ability = ability;
-    this.is_bought = shop.unlocked_upgrades[this.ability];
-    this.available = shop.is_available(this.ability);
     this.img = shop.images[ability];
     this.outline_color = color(this.img.get(5, 5));
 
@@ -14,13 +13,21 @@ class ShopItem {
       this.pos,
       this.outline_color,
       side,
-      () => shop.unlock(this.ability)
+      () => shop.unlock(this.ability),
+      shop.images['tick'],
+      () => shop.unlocked_upgrades[this.ability],
+      () => shop.available_upgrades > 0
     );
 
     this.hovered = false;
   }
 
+  available() {
+    return this.shop.is_available(this.ability);
+  }
+
   contains_mouse() {
+    if (!this.available()) return false;
     const [x, y, w = 100, h = 100] = this.pos;
     if (mouseX < x - w / 2) return false;
     if (mouseX > x + w / 2) return false;
@@ -36,6 +43,12 @@ class ShopItem {
   show() {
     imageMode(CENTER);
     const size = this.hovered ? 90 : 80;
-    image(this.img, this.pos[0], this.pos[1], size, size);
+    image(this.img, ...this.pos, size, size);
+    if (!this.available()) {
+      rectMode(CENTER);
+      strokeWeight(0);
+      fill(0, 180);
+      rect(...this.pos, size, size);
+    }
   }
 }

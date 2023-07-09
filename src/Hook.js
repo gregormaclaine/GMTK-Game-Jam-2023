@@ -113,6 +113,7 @@ class Hook {
   }
 
   show() {
+    imageMode(CORNER);
     image(
       this.image,
       this.pos[0] - this.size[0] / 2,

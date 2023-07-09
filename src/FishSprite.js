@@ -1,11 +1,20 @@
 class FishSprite {
   static WIDTH = 80;
 
+  // Hardcoded values
   static FISH_OFFSETS = {
     fish: 0,
+    'crown-fish': 3,
+    'brain-fish': 0,
+    'brain-crown-fish': 3,
+    'rocket-fish': 2,
+    'rocket-crown-fish': 3,
+    'rocket-brain-fish': 2,
+    'rocket-brain-crown-fish': 3,
+
     'muscle-fish': 0,
-    'crown-fish': 6,
-    'muscle-crown-fish': 6
+    'muscle-crown-fish': 6,
+    'eyes-fish': 1
   };
 
   constructor({ fish, pos, angle, images }) {
@@ -58,7 +67,8 @@ class FishSprite {
       rotate(this.angle);
     }
 
-    image(this.image, -this.size[0] / 2, -this.size[1] / 2, ...this.true_size);
+    imageMode(CENTER);
+    image(this.image, 0, 0, ...this.true_size);
     pop();
 
     this.hitbox.show();

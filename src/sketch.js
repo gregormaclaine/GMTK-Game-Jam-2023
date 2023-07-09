@@ -15,15 +15,15 @@ function preload() {
   images['muscle-crown-fish'] = loadImage('assets/img/fish/muscle-crown.png');
 
   // Shop Item Icons
-  images['agility_1'] = loadImage('assets/img/shop_icons/agility_1.png');
-  images['agility_2'] = loadImage('assets/img/shop_icons/agility_2.png');
-  images['luck_1'] = loadImage('assets/img/shop_icons/luck_1.png');
-  images['luck_2'] = loadImage('assets/img/shop_icons/luck_2.png');
-  images['luck_3'] = loadImage('assets/img/shop_icons/luck_3.png');
-  images['reaction_1'] = loadImage('assets/img/shop_icons/reaction_1.png');
-  images['reaction_2'] = loadImage('assets/img/shop_icons/reaction_2.png');
-  images['vision_1'] = loadImage('assets/img/shop_icons/vision_1.png');
-  images['vision_2'] = loadImage('assets/img/shop_icons/vision_2.png');
+  images['agility-1'] = loadImage('assets/img/shop_icons/agility_1.png');
+  images['agility-2'] = loadImage('assets/img/shop_icons/agility_2.png');
+  images['luck-1'] = loadImage('assets/img/shop_icons/luck_1.png');
+  images['luck-2'] = loadImage('assets/img/shop_icons/luck_2.png');
+  images['luck-3'] = loadImage('assets/img/shop_icons/luck_3.png');
+  images['reaction-1'] = loadImage('assets/img/shop_icons/reaction_1.png');
+  images['reaction-2'] = loadImage('assets/img/shop_icons/reaction_2.png');
+  images['vision-1'] = loadImage('assets/img/shop_icons/vision_1.png');
+  images['vision-2'] = loadImage('assets/img/shop_icons/vision_2.png');
 
   // Gifs
   images['spinning-fish'] = new Gif({

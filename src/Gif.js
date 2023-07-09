@@ -88,7 +88,8 @@ class Gif {
     if (!this.fade_mode) return;
 
     this.fade_progress +=
-      (1 / frameRate() / Gif.FADE_TIME) * (this.fade_mode === 'in' ? 1 : -1);
+      (1 / (frameRate() || 60) / Gif.FADE_TIME) *
+      (this.fade_mode === 'in' ? 1 : -1);
     if (this.fade_progress < 0 || this.fade_progress > 1) {
       this.fade_progress = round(this.fade_progress);
       this.fade_completed();

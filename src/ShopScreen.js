@@ -1,36 +1,3 @@
-class ShopItem {
-  // pos is x and y co-ords of the item
-  constructor({ pos, on_click, available, img }) {
-    this.pos = pos;
-    this.on_click = on_click;
-    this.available = available;
-    this.img = img;
-  }
-
-  contains_mouse() {
-    const [x, y, w = 100, h = 100] = this.pos;
-    if (mouseX < x - w / 2) return false;
-    if (mouseX > x + w / 2) return false;
-    if (mouseY < y - h / 2) return false;
-    if (mouseY > y + h / 2) return false;
-    return true;
-  }
-
-  handle_click() {
-    if (this.contains_mouse) this.on_click();
-  }
-
-  show() {
-    imageMode(CENTER);
-    const size = this.contains_mouse() ? 110 : 100;
-    image(this.img, this.pos[0], this.pos[1], size, size);
-
-    if (this.contains_mouse() && this.available) {
-      cursor('pointer');
-    }
-  }
-}
-
 class ShopScreen {
   constructor(images, start_next_day) {
     this.images = images;
@@ -50,15 +17,15 @@ class ShopScreen {
 
     // prettier-ignore
     this.shop_items = [
-      new ShopItem({ pos: [250, 125], on_click: ()=>{}, available: true, img: images['agility_1'] }),
-      new ShopItem({ pos: [100, 125], on_click: ()=>{}, available: true, img: images['agility_2'] }),
-      new ShopItem({ pos: [550, 125], on_click: ()=>{}, available: true, img: images['reaction_1'] }),
-      new ShopItem({ pos: [700, 125], on_click: ()=>{}, available: true, img: images['reaction_2'] }),
-      new ShopItem({ pos: [250, 475], on_click: ()=>{}, available: true, img: images['luck_1'] }),
-      new ShopItem({ pos: [100, 400], on_click: ()=>{}, available: true, img: images['luck_2'] }),
-      new ShopItem({ pos: [100, 550], on_click: ()=>{}, available: true, img: images['luck_3'] }),
-      new ShopItem({ pos: [550, 475], on_click: ()=>{}, available: true, img: images['vision_1'] }),
-      new ShopItem({ pos: [700, 475], on_click: ()=>{}, available: true, img: images['vision_2'] }),
+      new ShopItem({ pos: [250, 125], shop: this, ability: 'agility-1',  side: 'right', name: 'Rocket Booster', desc: 'Attach rockets to increase acceleration' }),
+      new ShopItem({ pos: [100, 125], shop: this, ability: 'agility-2',  side: 'right', name: '', desc: '' }),
+      new ShopItem({ pos: [550, 125], shop: this, ability: 'reaction-1', side: 'left',  name: '', desc: '' }),
+      new ShopItem({ pos: [700, 125], shop: this, ability: 'reaction-2', side: 'left',  name: '', desc: '' }),
+      new ShopItem({ pos: [250, 475], shop: this, ability: 'luck-1',     side: 'right', name: '', desc: '' }),
+      new ShopItem({ pos: [100, 400], shop: this, ability: 'luck-2',     side: 'right', name: '', desc: '' }),
+      new ShopItem({ pos: [100, 550], shop: this, ability: 'luck-3',     side: 'right', name: '', desc: '' }),
+      new ShopItem({ pos: [550, 475], shop: this, ability: 'vision-1',   side: 'left',  name: 'Bigger Eyes', desc: 'Other fish can more easily see the fishing hook' }),
+      new ShopItem({ pos: [700, 475], shop: this, ability: 'vision-2',   side: 'left',  name: '', desc: '' }),
     ];
 
     this.continue = new JL.Button(
@@ -66,11 +33,23 @@ class ShopScreen {
       [width * 0.85, height * 0.9, 200, 100],
       this.close.bind(this)
     );
+
+    this.open_item = null;
+  }
+
+  is_available(ability) {
+    // temp:
+    return true;
+  }
+
+  unlock(ability) {
+    // temp:
+    this.unlocked_upgrades[ability] = true;
   }
 
   handle_click() {
     this.shop_items.forEach(i => i.handle_click());
-    this.continue.handle_click();
+    // this.continue.handle_click();
   }
 
   open(fish_lost) {
@@ -86,13 +65,12 @@ class ShopScreen {
     background(200);
     image(this.images['underwater_bg'], 400, 300, 800, 600);
 
-    textAlign(CENTER);
+    textAlign(CENTER, CENTER);
     fill(255);
     strokeWeight(0);
     textSize(28);
     text('Upgrade available', width * 0.5, height * 0.05);
 
-    textAlign(CENTER, CENTER);
     fill(255, 255, 255, 70);
     strokeWeight(0);
     textSize(120);
@@ -114,6 +92,24 @@ class ShopScreen {
     line(400, 300, 225, 475);
 
     this.shop_items.forEach(i => i.show());
+
+    if (this.open_item) {
+      this.open_item.dialogue.show();
+      const hovered =
+        this.open_item.contains_mouse() ||
+        this.open_item.dialogue.contains_mouse();
+      this.open_item.hovered = hovered;
+      if (!hovered) this.open_item = null;
+    } else {
+      this.shop_items.some(i => {
+        if (i.contains_mouse()) {
+          this.open_item = i;
+          i.hovered = true;
+          return true;
+        }
+      });
+    }
+
     // this.continue.show();
   }
 

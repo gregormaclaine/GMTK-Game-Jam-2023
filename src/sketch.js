@@ -16,14 +16,17 @@ function preload() {
   images['wings'] = loadImage('assets/img/wings.png');
   images['fisherman'] = loadImage('assets/img/fisherman.png');
   images['underwater_bg'] = loadImage('assets/img/underwater_bg.jpg');
+  images['game-background'] = loadImage('assets/img/game-background.png');
   images['dialogue-profile'] = loadImage('assets/img/dialogue-profile.png');
   images['dialogue-box'] = loadImage('assets/img/dialogue-box.png');
   images['pause-tooltip'] = loadImage('assets/img/pause_tooltip.png');
-  
+
   // Main Menu
   images['menu_bg'] = loadImage('assets/img/main_menu/menu_bg.jpg');
   images['start-button'] = loadImage('assets/img/main_menu/start_button.png');
-  images['credits-button'] = loadImage('assets/img/main_menu/credits_button.png');
+  images['credits-button'] = loadImage(
+    'assets/img/main_menu/credits_button.png'
+  );
 
   // End Stars
   images['1-stars'] = loadImage('assets/img/end/1-stars.png');

@@ -27,13 +27,13 @@ class PlayerScore {
     stroke(0);
     strokeWeight(1);
     fill(0);
-    textSize(25);
+    textSize(20);
     textAlign(RIGHT, CENTER);
-    text('Score: ' + this.score, width - (this.combo > 1 ? 70 : 30), 30);
+    text('Score: ' + this.score, width - (this.combo > 1 ? 70 : 30), 70);
 
     if (this.combo > 1) {
       push();
-      translate(width - 35, 28);
+      translate(width - 35, 68);
       rotate(PI / 12);
       imageMode(CENTER);
       image(this.combo_image, 0, -2, ...this.combo_img_size);

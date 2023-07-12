@@ -3,6 +3,7 @@ class DialogueManager {
   static INNER_PROFILE_RECT = [125, 475, 125, 125];
   static DIALOGUE_RECT = [750 - 525 / 2, 475, 525, 150];
   static TEXT_RECT = [750 - 525 / 2, 475, 500, 125];
+  static SKIP_RECT = [750 - 50, 34, 150, 50];
 
   static TEXT_SPEED = 50;
 
@@ -13,10 +14,21 @@ class DialogueManager {
     this.active = false;
     this.current_dialogue = null;
     this.progress = 0;
+
+    this.skip = false;
   }
 
   contains_mouse() {
     const [x, y, w, h] = DialogueManager.DIALOGUE_RECT;
+    if (mouseX < x - w / 2) return false;
+    if (mouseX > x + w / 2) return false;
+    if (mouseY < y - h / 2) return false;
+    if (mouseY > y + h / 2) return false;
+    return true;
+  }
+
+  mouse_over_skip() {
+    const [x, y, w, h] = DialogueManager.SKIP_RECT;
     if (mouseX < x - w / 2) return false;
     if (mouseX > x + w / 2) return false;
     if (mouseY < y - h / 2) return false;
@@ -29,6 +41,11 @@ class DialogueManager {
     this.active = true;
     await timeout(wait * 1000);
     for (const dialogue of dialogues) {
+      if (this.skip) {
+        this.skip = false;
+        break;
+      }
+
       this.current_dialogue = dialogue;
       this.progress = 0;
       if (dialogue.jumpscare) {
@@ -43,13 +60,17 @@ class DialogueManager {
   }
 
   handle_click() {
-    if (!this.contains_mouse()) return;
-    if (!this.current_dialogue || this.current_dialogue.jumpscare) return;
-    const t = this.current_dialogue.text;
-    const text_index = floor(lerp(0, t.length, this.progress));
-    if (text_index < t.length) {
-      this.progress = 1;
-    } else {
+    if (this.contains_mouse()) {
+      if (!this.current_dialogue || this.current_dialogue.jumpscare) return;
+      const t = this.current_dialogue.text;
+      const text_index = floor(lerp(0, t.length, this.progress));
+      if (text_index < t.length) {
+        this.progress = 1;
+      } else {
+        this.finished_dialogue();
+      }
+    } else if (this.mouse_over_skip()) {
+      this.skip = true;
       this.finished_dialogue();
     }
   }
@@ -76,10 +97,11 @@ class DialogueManager {
         const t = this.current_dialogue.text;
         const text_index = floor(lerp(0, t.length, this.progress));
         text(t.substring(0, text_index), ...DialogueManager.TEXT_RECT);
+
+        image(images['skip-button'], ...DialogueManager.SKIP_RECT);
       }
 
       if (this.current_dialogue.jumpscare) {
-        imageMode(CENTER);
         image(
           this.images[this.current_dialogue.image],
           width * 0.5,
@@ -99,7 +121,7 @@ class DialogueManager {
         ((1 / frameRate()) * DialogueManager.TEXT_SPEED) /
         this.current_dialogue.text.length;
 
-      if (this.contains_mouse()) cursor('pointer');
+      if (this.contains_mouse() || this.mouse_over_skip()) cursor('pointer');
     }
   }
 }

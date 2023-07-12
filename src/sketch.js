@@ -12,6 +12,7 @@ function preload() {
   fontBold = loadFont('assets/font/Oxygen-Bold.ttf');
 
   images['hook'] = loadImage('assets/img/fish-hook.png');
+  images['skip-button'] = loadImage('assets/img/skip-button.png');
   images['frog'] = loadImage('assets/img/frog.png');
   images['sun'] = loadImage('assets/img/sun.png');
   images['star'] = loadImage('assets/img/star.png');
